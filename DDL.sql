@@ -4,6 +4,9 @@
 -- Connor Allen, Lucas Feldsein
 -- ============================================
 
+SET FOREIGN_KEY_CHECKS=0;
+SET AUTOCOMMIT = 0;
+
 DROP TABLE IF EXISTS Players;
 CREATE TABLE Players (
     player_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -158,3 +161,6 @@ VALUES
 ('raw chicken', 64, 4),
 ('egg', 16, 4),
 ('bow', 1, 5);
+
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
