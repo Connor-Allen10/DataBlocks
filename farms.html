@@ -1,0 +1,187 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Farms & Storage Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <nav>
+        Navigation:
+        <a href="/home">Home</a>
+        <a href="/player">Worlds</a>
+        <a href="/stats">stats</a>
+		<a href="/farms">farms and items</a>
+    </nav>
+
+    <h1>Farms</h1>
+    <div class="FarmsDescription">
+        <p>View farms for a selected world, add new farms, and remove farms.</p>
+    </div>
+
+    <form method="GET" action="/Farms">
+        <label for="selected_world_id">Select World:</label>
+        <select name="selected_world_id" id="selected_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+        <input type="submit" value="View Farms">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>item_name</th>
+                <th>yield_per_hour</th>
+                <th>x</th>
+                <th>y</th>
+                <th>z</th>
+                <th>is_loaded</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Rotten Flesh</td>
+                <td>723</td>
+                <td>-146</td>
+                <td>73</td>
+                <td>2573</td>
+                <td>1</td>
+
+                <form method="POST" action="/delete-farm">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <input type="hidden" name="selected_farm_id" value="3">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td>iron ingot</td>
+                <td>39</td>
+                <td>-146</td>
+                <td>73</td>
+                <td>2573</td>
+                <td>1</td>
+
+                <form method="POST" action="/delete-farm">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <input type="hidden" name="selected_farm_id" value="3">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Add a New Farm</h2>
+
+    <form method="POST" action="/add-farm">
+
+        <label for="selected_world_id">World:</label>
+        <select name="selected_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+
+        <label for="x_coordinate_input">X Coordinate:</label>
+        <input type="number" name="x_coordinate_input" required>
+
+        <label for="y_coordinate_input">Y Coordinate:</label>
+        <input type="number" name="y_coordinate_input" required>
+
+        <label for="z_coordinate_input">Z Coordinate:</label>
+        <input type="number" name="z_coordinate_input" required>
+
+        <label for="is_loaded_input">Is Loaded:</label>
+        <select name="is_loaded_input">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <input type="submit" value="Add Farm">
+    </form>
+
+    <h1>Storage Units</h1>
+    <div class="StorageDescription">
+        <p>View storage units for a selected world.</p>
+    </div>
+
+    <form method="GET" action="/Storage">
+        <label for="selected_world_id">Select World:</label>
+        <select name="selected_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+        <input type="submit" value="View Storage">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>storage_type</th>
+                <th>storage_slots</th>
+                <th>x</th>
+                <th>y</th>
+                <th>z</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>double chest</td>
+                <td>54</td>
+                <td>-147</td>
+                <td>73</td>
+                <td>2574</td>
+            </tr>
+            <tr>
+                <td>chest</td>
+                <td>27</td>
+                <td>-3956</td>
+                <td>51</td>
+                <td>5</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Stored Items</h1>
+    <div class="StoredItemsDescription">
+        <p>View stored items for a selected world.</p>
+    </div>
+
+    <form method="GET" action="/StoredItems">
+        <label for="selected_world_id">Select World:</label>
+        <select name="selected_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+        <input type="submit" value="View Items">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>item_name</th>
+                <th>quantity</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Rotten Flesh</td>
+                <td>64</td>
+            </tr>
+            <tr>
+                <td>iron ingot</td>
+                <td>32</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
