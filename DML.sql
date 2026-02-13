@@ -23,7 +23,7 @@ VALUES (username_input, 0);
 -- Get all the worlds from every player
 SELECT Players.username, name, version, gamemode
 FROM worlds
-INNER JOIN PLayers ON Worlds.player_id = Players.player_id
+INNER JOIN Players ON Worlds.player_id = Players.player_id
 ORDER BY world_id;
 
 -- Add a new world
@@ -40,7 +40,7 @@ WHERE world_id = selected_world_id;
 
 -- Get all statistics from selected world
 SELECT blocks_mined, distance_travelled, mob_slain, days_elapsed
-FROM World
+FROM Statistics
 WHERE world_id = selected_world_id;
 
 -- Update statistics
@@ -74,11 +74,39 @@ SET progress = progress_input,
 WHERE world_id = selected_world_id;
 
 
--- Farms
---(x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id)
---FarmItems
---(item_name, item_yield_per_hour, farm_id)
---StorageUnits
+-- Farms/FarmItems
+
+
+SELECT FarmItems.item_name, FarmItems.ote,_yield_per_hour, x_coordinate, y_coordinate, z_coordinate, is_loaded
+FROM Farms
+INNER JOIN FarmItems ON FarmItems.farm_id = Farms.farm_id
+WHERE world_id = selected_world_id
+ORDER BY farm_id;
+
+-- Add a new farm
+INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id)
+VALUES (x_coordinate_input, y_coordinate_input, z_coordinate_input, is_loaded_input, selected_world_id);
+
+-- remove a farm
+DELETE FROM Farms
+WHERE world_id = selected_world_id
+AND farm_id = selected_farm_id;
+
+
+--StorageUnits/StoredItems
 --(storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id)
---StoredItems
 --(item_name, quantity, storage_id)
+
+SELECT storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate,
+FROM StorageUnits
+WHERE world_id = selected_world_id
+ORDER BY storage_id;
+
+
+--StoredItems
+
+
+SELECT item_name, quantity
+FROM StoredItems
+WHERE world_id = selected_world_id
+ORDER BY storage_id;
