@@ -9,7 +9,7 @@
 <body>
     <nav>
         Navigation:
-        <a href="/">Home</a>
+        <a href="/home">Home</a>
         <a href="/Worlds">Worlds</a>
         <a href="/Farms">farms</a>
 		<a href="/Items">Stored Items</a>
@@ -31,19 +31,24 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>Steve</td>
+                <td>Herobrine</td>
                 <td>3</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>Alex</td>
+                <td>Jeb_</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Steve</td>
                 <td>1</td>
             </tr>
         </tbody>
     </table>
 
     <h2>Add a Player</h2>
-    <form class="cuForm" id="add_player_form" method="POST" action="/add-player">
+    <form id="add_player_form" method="POST" action="/add-player">
         <label for="username_input">Username:</label>
         <input type="text" name="username_input" id="username_input" required>
 
@@ -67,10 +72,62 @@
         </thead>
         <tbody>
             <tr>
+                <td>Herobrine</td>
+                <td>horror gameplay</td>
+                <td>1.8.1</td>
+                <td>survival</td>
+
+                <form method="POST" action="/delete-world">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td>Jeb_</td>
+                <td>parkour civilization</td>
+                <td>1.7.2</td>
+                <td>creative</td>
+
+                <form method="POST" action="/delete-world">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td>Jeb_</td>
+                <td>skyblock</td>
+                <td>1.15.5</td>
+                <td>survival</td>
+
+                <form method="POST" action="/delete-world">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
                 <td>Steve</td>
-                <td>SurvivalLand</td>
-                <td>1.20</td>
-                <td>Survival</td>
+                <td>underwater temple</td>
+                <td>1.21.1</td>
+                <td>creative</td>
+
+                <form method="POST" action="/delete-world">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td>Steve</td>
+                <td>WIP</td>
+                <td>1.12.3</td>
+                <td>creative</td>
 
                 <form method="POST" action="/delete-world">
                     <input type="hidden" name="selected_world_id" value="1">
@@ -83,7 +140,7 @@
     </table>
 
     <h2>Add a World</h2>
-    <form class="cuForm" id="add_world_form" method="POST" action="/add-world">
+    <form id="add_world_form" method="POST" action="/add-world">
         <label for="name_input">World Name:</label>
         <input type="text" name="name_input" id="name_input" required>
 
