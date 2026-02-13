@@ -1,0 +1,172 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>World Statistics & Advancements</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        Navigation:
+        <a href="/home">Home</a>
+        <a href="/Worlds">Worlds</a>
+        <a href="/stats">stats</a>
+		<a href="/farms">farms and items</a>
+    </nav>
+
+    <h1>Statistics</h1>
+    <div class="StatisticsDescription">
+        <p>View, update, and delete statistics for a selected world.</p>
+    </div>
+
+    <h2>World Statistics</h2>
+
+    <form method="GET" action="/Statistics">
+        <label for="selected_world_id">Select World:</label>
+        <select name="selected_world_id" id="selected_world_id">
+            <option value="1">horror gameplay</option>
+            <option value="2">parkour civilization</option>
+        </select>
+        <input type="submit" value="View Statistics">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>blocks_mined</th>
+                <th>distance_travelled</th>
+                <th>mob_slain</th>
+                <th>days_elapsed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>9983</td>
+                <td>100023</td>
+                <td>14389</td>
+                <td>183</td>
+
+                <form method="POST" action="/delete-statistics">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <td>1382674</td>
+                <td>38427</td>
+                <td>4</td>
+                <td>9</td>
+
+                <form method="POST" action="/delete-statistics">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Update Statistics</h2>
+
+    <form method="POST" action="/update-statistics">
+
+        <label for="update_world_id">World:</label>
+        <select name="selected_world_id" id="update_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+
+        <label for="input_blocks_mined">Blocks Mined:</label>
+        <input type="number" name="input_blocks_mined" id="input_blocks_mined" required>
+
+        <label for="descriptionInput">Distance Travelled:</label>
+        <input type="number" name="descriptionInput" id="descriptionInput" required>
+
+        <label for="conditionInput">Mobs Slain:</label>
+        <input type="number" name="conditionInput" id="conditionInput" required>
+
+        <label for="categoryInput">Days Elapsed:</label>
+        <input type="number" name="categoryInput" id="categoryInput" required>
+
+        <input type="submit" value="Update Statistics">
+    </form>
+
+    <h1>Advancements</h1>
+    <div class="AdvancementsDescription">
+        <p>View, add, and update advancements for worlds.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>description</th>
+                <th>progress</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Subspace Bubble</td>
+                <td>Use the Nether to travel 7 km in the Overworld</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Acquire Hardware</td>
+                <td>Smelt an Iron Ingot</td>
+                <td>100</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Add Advancement</h2>
+
+    <form method="POST" action="/add-advancement">
+
+        <label for="name_input">Name:</label>
+        <input type="text" name="name_input" id="name_input" required>
+
+        <label for="description_input">Description:</label>
+        <input type="text" name="description_input" id="description_input" required>
+
+        <label for="progress_input">Progress:</label>
+        <select name="progress_input" id="progress_input">
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+
+        <label for="selected_world_id">World:</label>
+        <select name="selected_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+
+        <input type="submit" value="Add Advancement">
+    </form>
+
+    <h2>Update Advancement Progress</h2>
+
+    <form method="POST" action="/update-advancement">
+
+        <label for="update_world_id">World:</label>
+        <select name="selected_world_id">
+            <option value="1">SurvivalLand</option>
+            <option value="2">CreativeWorld</option>
+        </select>
+
+        <label for="progress_input">New Progress:</label>
+        <select name="progress_input">
+            <option value="0">In Progress</option>
+            <option value="100">Completed</option>
+        </select>
+
+        <input type="submit" value="Update Advancement">
+    </form>
+
+</body>
+</html>
