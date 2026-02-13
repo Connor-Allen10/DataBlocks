@@ -13,14 +13,17 @@ SELECT player_id, username, world_count
 FROM Players
 ORDER BY player_id;
 
+-- create a new player
+INSERT INTO Players (username, world_count)
+VALUES (username_input, 0);
 
 -- Worlds
 
 
--- Get all the worlds from a single player
-SELECT name, version, gamemode
+-- Get all the worlds from every player
+SELECT Players.username, name, version, gamemode
 FROM worlds
-WHERE player_id = selected_player_id;
+INNER JOIN PLayers ON Worlds.player_id = Players.player_id
 ORDER BY world_id;
 
 -- Add a new world

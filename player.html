@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Game World Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        Navigation:
+        <a href="/">Home</a>
+        <a href="/Worlds">Worlds</a>
+        <a href="/Farms">farms</a>
+		<a href="/Items">Stored Items</a>
+    </nav>
+
+    <h1>Players</h1>
+    <div class="PlayersDescription">
+        <p>Create and view players.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>player_id</th>
+                <th>username</th>
+                <th>world_count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Steve</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Alex</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Add a Player</h2>
+    <form class="cuForm" id="add_player_form" method="POST" action="/add-player">
+        <label for="username_input">Username:</label>
+        <input type="text" name="username_input" id="username_input" required>
+
+        <input type="submit" value="Add Player">
+    </form>
+
+    <h1>Worlds</h1>
+    <div class="WorldsDescription">
+        <p>View, add, and delete worlds.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>player username</th>
+                <th>name</th>
+                <th>version</th>
+                <th>gamemode</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Steve</td>
+                <td>SurvivalLand</td>
+                <td>1.20</td>
+                <td>Survival</td>
+
+                <form method="POST" action="/delete-world">
+                    <input type="hidden" name="selected_world_id" value="1">
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Add a World</h2>
+    <form class="cuForm" id="add_world_form" method="POST" action="/add-world">
+        <label for="name_input">World Name:</label>
+        <input type="text" name="name_input" id="name_input" required>
+
+        <label for="gamemode_input">Gamemode:</label>
+        <select name="gamemode_input" id="gamemode_input" required>
+            <option value="">Select Gamemode</option>
+            <option value="Survival">Survival</option>
+            <option value="Creative">Creative</option>
+            <option value="Hardcore">Hardcore</option>
+            <option value="Adventure">Adventure</option>
+        </select>
+
+        <label for="version_input">Version:</label>
+        <input type="text" name="version_input" id="version_input" required>
+
+        <label for="selected_player_id">Player:</label>
+        <select name="selected_player_id" id="selected_player_id" required>
+            <option value="1">Steve</option>
+            <option value="2">Alex</option>
+        </select>
+
+        <input type="submit" value="Add World">
+    </form>
+
+</body>
+</html>
