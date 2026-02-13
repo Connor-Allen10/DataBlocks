@@ -94,8 +94,7 @@ AND farm_id = selected_farm_id;
 
 
 --StorageUnits/StoredItems
---(storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id)
---(item_name, quantity, storage_id)
+
 
 SELECT storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate,
 FROM StorageUnits
