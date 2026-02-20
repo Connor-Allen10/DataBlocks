@@ -30,6 +30,7 @@
             <th>Item Name</th>
             <th>Quantity</th>
             <th>StorageID</th>
+            <th>Delete</th>
         </tr>
         <tr>
             <td>1</td>
@@ -102,6 +103,7 @@
                         <td>${StoredItems.stored_item_id}</td>
                         <td>${StoredItems.item_name}</td>
                         <td>${StoredItems.quantity}</td>
+                        <td>${StoredItems.storage_id}</td>
                         <td>
                             <form method="POST" action="/delete-StoredItems" style="display:inline;">
                                 <input type="hidden" name="stored_item_id" value="${StoredItems.stored_item_id}">
