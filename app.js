@@ -216,6 +216,32 @@ app.post('/delete-StorageUnits', async function (req, res) {
     }
 });
 
+// Add StoredItems (POST)
+app.post('/add-StoredItems', async function (req, res) {
+    const db = require('./db-connector');
+    const itemName = req.body.item_name_input;
+    const itemQuantity = req.body.quantity_input;
+    const UnitIdFk = req.body.unit_id_input;
+    try {
+        await db.query('INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (?, ?)', [itemName, itemQuantity, UnitIdFk]);
+        res.redirect('/storeditems');
+    } catch (err) {
+        res.status(500).send('Error adding Storage Unit: ' + err.message);
+    }
+});
+
+// Delete StoredItems (POST)
+app.post('/delete-StoredItems', async function (req, res) {
+    const db = require('./db-connector');
+    const storedItemId = req.body.stored_item_id;
+    try {
+        await db.query('DELETE FROM StoredItems WHERE stored_item_id = ?', [storedItemId]);
+        res.redirect('/storeditems');
+    } catch (err) {
+        res.status(500).send('Error deleting Stored Item: ' + err.message);
+    }
+});
+
 /*
     LISTENER
 */

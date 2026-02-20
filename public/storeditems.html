@@ -74,5 +74,46 @@
             <td>5</td>
         </tr>
     </table>
+
+    <h2>Add a stored item</h2>
+    <form id="add_stored_item_form" method="POST" action="/add-StoredItems">
+        <label for="item_name_input">Item name:</label>
+        <input type="text" name="item_name_input" id="item_name_input" required>
+        <label for="quantity_input">Item Quantity:</label>
+        <input type="number" name="quantity_input" id="quantity_input" required>
+
+        <label for="unit_id_input">Storage Unit Id:</label>
+        <input type="number" name="unit_id_input" id="unit_id_input" required>
+
+        <input type="submit" value="Add storage unit">
+    </form>
+
+    <script>
+    // Fetch and render storage units table
+    function renderStorageItemsTable() {
+        fetch('/api/storeditems')
+            .then(response => response.json())
+            .then(storeditems => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                storeditems.forEach(storeditem => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${StoredItems.stored_item_id}</td>
+                        <td>${StoredItems.item_name}</td>
+                        <td>${StoredItems.quantity}</td>
+                        <td>
+                            <form method="POST" action="/delete-StoredItems" style="display:inline;">
+                                <input type="hidden" name="stored_item_id" value="${StoredItems.stored_item_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', renderStorageItemsTable);
+    </script>
 </body>
 </html>
