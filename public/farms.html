@@ -90,12 +90,12 @@
                 farms.forEach(farm => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${Farms.farm_id}</td>
-                        <td>${Farms.x_coordinate}</td>
-                        <td>${Farms.y_coordinate}</td>
-                        <td>${Farms.z_coordinate}</td>
-                        <td>${Farms.is_loaded}</td>
-                        <td>${Farms.world_id}</td>
+                        <td>${farm.farm_id}</td>
+                        <td>${farm.x_coordinate}</td>
+                        <td>${farm.y_coordinate}</td>
+                        <td>${farm.z_coordinate}</td>
+                        <td>${farm.is_loaded}</td>
+                        <td>${farm.world_id}</td>
                     `;
                     tbody.appendChild(row);
                 });

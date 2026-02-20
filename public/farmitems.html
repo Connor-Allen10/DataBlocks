@@ -79,10 +79,10 @@
                 farmitems.forEach(farmitem => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${FarmItems.farm_item_id}</td>
-                        <td>${FarmItems.item_name}</td>
-                        <td>${FarmItems.item_yield_per_hour}</td>
-                        <td>${FarmItems.farm_id}</td>
+                        <td>${farmitem.farm_item_id}</td>
+                        <td>${farmitem.item_name}</td>
+                        <td>${farmitem.item_yield_per_hour}</td>
+                        <td>${farmitem.farm_id}</td>
                     `;
                     tbody.appendChild(row);
                 });
