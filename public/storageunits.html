@@ -107,10 +107,10 @@
     function renderStorageUnitsTable() {
         fetch('/api/storageunits')
             .then(response => response.json())
-            .then(players => {
+            .then(storageunits => {
                 const tbody = document.querySelector('table tbody');
                 tbody.innerHTML = '';
-                players.forEach(player => {
+                storageunits.forEach(storageunit => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${StorageUnits.storage_id}</td>
