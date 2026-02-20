@@ -67,7 +67,10 @@
     // Fetch and render storage units table
     function renderStorageUnitsTable() {
         fetch('/api/storageunits')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
             .then(storageunits => {
                 const tbody = document.querySelector('table tbody');
                 tbody.innerHTML = '';
@@ -90,10 +93,13 @@
                     `;
                     tbody.appendChild(row);
                 });
+            })
+            .catch(error => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = `<tr><td colspan="8">Error loading storage units: ${error.message}</td></tr>`;
             });
     }
     document.addEventListener('DOMContentLoaded', renderStorageUnitsTable);
-
     </script>
 </body>
 </html>

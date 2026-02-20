@@ -56,7 +56,10 @@
     // Fetch and render storage items table
     function renderStorageItemsTable() {
         fetch('/api/storeditems')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
             .then(storeditems => {
                 const tbody = document.querySelector('table tbody');
                 tbody.innerHTML = '';
@@ -76,6 +79,10 @@
                         `;
                     tbody.appendChild(row);
                 });
+            })
+            .catch(error => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = `<tr><td colspan=\"5\">Error loading stored items: ${error.message}</td></tr>`;
             });
     }
     document.addEventListener('DOMContentLoaded', renderStorageItemsTable);

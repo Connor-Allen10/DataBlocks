@@ -89,6 +89,27 @@ app.get('/api/statistics', async function (req, res) {
     }
 });
 
+// API endpoint to get all farms as JSON
+app.get('/api/farms', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM Farms');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// API endpoint to get all storage units as JSON
+app.get('/api/storageunits', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM StorageUnits');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 // Farms page
 app.get('/farms', function (req, res) {
     res.sendFile(path.join(__dirname, 'public', 'farms.html'));
