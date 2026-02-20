@@ -25,13 +25,15 @@
     </div>
 
     <table>
-        <tr>
-            <th>StoredItemID</th>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>StorageID</th>
-            <th>Delete</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>StoredItemID</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>StorageID</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
         <tr>
             <td>1</td>
             <td>Rotten Flesh</td>
@@ -86,11 +88,11 @@
         <label for="unit_id_input">Storage Unit Id:</label>
         <input type="number" name="unit_id_input" id="unit_id_input" required>
 
-        <input type="submit" value="Add storage unit">
+        <input type="submit" value="Add stored item">
     </form>
 
     <script>
-    // Fetch and render storage units table
+    // Fetch and render storage items table
     function renderStorageItemsTable() {
         fetch('/api/storeditems')
             .then(response => response.json())
