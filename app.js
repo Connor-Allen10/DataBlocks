@@ -295,6 +295,62 @@ app.post('/delete-advancement', async function (req, res) {
     }
 });
 
+// Add Statistic (POST)
+app.post('/add-statistic', async function (req, res) {
+    const db = require('./db-connector');
+    const blocks_mined = req.body.blocks_mined_input;
+    const distance_travelled = req.body.distance_travelled_input;
+    const mob_slain = req.body.mob_slain_input;
+    const days_elapsed = req.body.days_elapsed_input;
+    const world_id = req.body.world_id_input;
+    try {
+        await db.query('INSERT INTO Statistics (blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id) VALUES (?, ?, ?, ?, ?)', [blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id]);
+        res.redirect('/stats');
+    } catch (err) {
+        res.status(500).send('Error adding statistic: ' + err.message);
+    }
+});
+
+// Delete Statistic (POST)
+app.post('/delete-statistic', async function (req, res) {
+    const db = require('./db-connector');
+    const statistic_id = req.body.statistic_id;
+    try {
+        await db.query('DELETE FROM Statistics WHERE statistic_id = ?', [statistic_id]);
+        res.redirect('/stats');
+    } catch (err) {
+        res.status(500).send('Error deleting statistic: ' + err.message);
+    }
+});
+
+// Add Farm (POST)
+app.post('/add-farm', async function (req, res) {
+    const db = require('./db-connector');
+    const x = req.body.x_coordinate_input;
+    const y = req.body.y_coordinate_input;
+    const z = req.body.z_coordinate_input;
+    const is_loaded = req.body.is_loaded_input;
+    const world_id = req.body.world_id_input;
+    try {
+        await db.query('INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id) VALUES (?, ?, ?, ?, ?)', [x, y, z, is_loaded, world_id]);
+        res.redirect('/farms');
+    } catch (err) {
+        res.status(500).send('Error adding farm: ' + err.message);
+    }
+});
+
+// Delete Farm (POST)
+app.post('/delete-farm', async function (req, res) {
+    const db = require('./db-connector');
+    const farm_id = req.body.farm_id;
+    try {
+        await db.query('DELETE FROM Farms WHERE farm_id = ?', [farm_id]);
+        res.redirect('/farms');
+    } catch (err) {
+        res.status(500).send('Error deleting farm: ' + err.message);
+    }
+});
+
 /*
     LISTENER
 */

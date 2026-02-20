@@ -33,51 +33,36 @@
                 <th>Z</th>
                 <th>Is Loaded</th>
                 <th>WorldID</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>-146</td>
-                <td>73</td>
-                <td>2573</td>
-                <td>1</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>-3955</td>
-                <td>51</td>
-                <td>4</td>
-                <td>0</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>-293</td>
-                <td>92</td>
-                <td>-30</td>
-                <td>0</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>246</td>
-                <td>83</td>
-                <td>-93</td>
-                <td>0</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>16</td>
-                <td>125</td>
-                <td>-34</td>
-                <td>1</td>
-                <td>5</td>
-            </tr>
+            <!-- Data rows rendered by JS -->
         </tbody>
     </table>
+
+    <h2>Add Farm</h2>
+        <form id="add_farm_form" method="POST" action="/add-farm">
+            <label for="x_coordinate_input">X Coordinate:</label>
+            <input type="number" name="x_coordinate_input" id="x_coordinate_input" required>
+
+            <label for="y_coordinate_input">Y Coordinate:</label>
+            <input type="number" name="y_coordinate_input" id="y_coordinate_input" required>
+
+            <label for="z_coordinate_input">Z Coordinate:</label>
+            <input type="number" name="z_coordinate_input" id="z_coordinate_input" required>
+
+            <label for="is_loaded_input">Is Loaded:</label>
+            <select name="is_loaded_input" id="is_loaded_input" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="world_id_input">World ID:</label>
+            <input type="number" name="world_id_input" id="world_id_input" required>
+
+            <input type="submit" value="Add Farm">
+        </form>
 
     <script>
     // Fetch and render farms table
@@ -96,12 +81,18 @@
                         <td>${farm.z_coordinate}</td>
                         <td>${farm.is_loaded}</td>
                         <td>${farm.world_id}</td>
+                        <td>
+                            <form method="POST" action="/delete-farm" style="display:inline;">
+                                <input type="hidden" name="farm_id" value="${farm.farm_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     `;
                     tbody.appendChild(row);
                 });
-            });
-    }
-    document.addEventListener('DOMContentLoaded', rendeFarmsTable);
+                });
+            }
+            document.addEventListener('DOMContentLoaded', renderFarmsTable);
     </script>
     
     <!--<h2>Add a New Farm</h2>

@@ -38,26 +38,44 @@
     <table>
         <thead>
             <tr>
-                <th>blocks_mined</th>
-                <th>distance_travelled</th>
-                <th>mob_slain</th>
-                <th>days_elapsed</th>
-                <th>world_id</th>
+                <th>ID</th>
+                <th>Blocks Mined</th>
+                <th>Distance Travelled</th>
+                <th>Mob Slain</th>
+                <th>Days Elapsed</th>
+                <th>World ID</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr><td>9983</td><td>100023</td><td>14389</td><td>183</td><td>1</td></tr>
-            <tr><td>1382674</td><td>38427</td><td>4</td><td>9</td><td>2</td></tr>
-            <tr><td>1332</td><td>302</td><td>168</td><td>497</td><td>3</td></tr>
-            <tr><td>142</td><td>5357</td><td>183</td><td>10</td><td>4</td></tr>
-            <tr><td>16</td><td>2537</td><td>0</td><td>2</td><td>5</td></tr>
+            <!-- Data rows rendered by JS -->
         </tbody>
     </table>
+
+    <h2>Add Statistic</h2>
+        <form id="add_statistic_form" method="POST" action="/add-statistic">
+            <label for="blocks_mined_input">Blocks Mined:</label>
+            <input type="number" name="blocks_mined_input" id="blocks_mined_input" required>
+
+            <label for="distance_travelled_input">Distance Travelled:</label>
+            <input type="number" name="distance_travelled_input" id="distance_travelled_input" required>
+
+            <label for="mob_slain_input">Mob Slain:</label>
+            <input type="number" name="mob_slain_input" id="mob_slain_input" required>
+
+            <label for="days_elapsed_input">Days Elapsed:</label>
+            <input type="number" name="days_elapsed_input" id="days_elapsed_input" required>
+
+            <label for="world_id_input">World ID:</label>
+            <input type="number" name="world_id_input" id="world_id_input" required>
+
+            <input type="submit" value="Add Statistic">
+        </form>
 
     <script>
     // Fetch and render Statistics table
     function renderStatsTable() {
-        fetch('/api/stats')
+        fetch('/api/statistics')
             .then(response => response.json())
             .then(stats => {
                 const tbody = document.querySelector('table tbody');
@@ -71,13 +89,22 @@
                         <td>${stat.mob_slain}</td>
                         <td>${stat.days_elapsed}</td>
                         <td>${stat.world_id}</td>
+                        <td>
+                            <form method="POST" action="/delete-statistic" style="display:inline;">
+                                <input type="hidden" name="statistic_id" value="${stat.statistic_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     `;
                     tbody.appendChild(row);
                 });
             });
     }
+
+        
     document.addEventListener('DOMContentLoaded', renderStatsTable);
     </script>
+    
     <!--<h2>Update Statistics</h2>
 
     <form method="POST" action="/update-statistics">
