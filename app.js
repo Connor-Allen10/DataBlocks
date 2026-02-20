@@ -194,7 +194,7 @@ app.post('/add-farmItem', async function (req, res) {
     const itemYield = req.body.item_yield_per_hour;
     const FarmIdFk = req.body.farm_id;
     try {
-        await db.query('INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (?, ?)', [itemFarmName, itemYield, FarmIdFk]);
+        await db.query('INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (?, ?, ?)', [itemFarmName, itemYield, FarmIdFk]);
         res.redirect('/farmitems');
     } catch (err) {
         res.status(500).send('Error adding FarmItems: ' + err.message);
@@ -223,7 +223,7 @@ app.post('/add-StorageUnits', async function (req, res) {
     const storeZ = req.body.store_z_input;
     const worldIdFk = req.body.world_id_input;
     try {
-        await db.query('INSERT INTO StorageUnits (storage_type , storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (?, ?)', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk]);
+        await db.query('INSERT INTO StorageUnits (storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (?, ?, ?, ?, ?, ?)', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk]);
         res.redirect('/storageunits');
     } catch (err) {
         res.status(500).send('Error adding StorageUnit: ' + err.message);
@@ -249,7 +249,7 @@ app.post('/add-StoredItems', async function (req, res) {
     const itemQuantity = req.body.quantity_input;
     const UnitIdFk = req.body.unit_id_input;
     try {
-        await db.query('INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (?, ?)', [itemName, itemQuantity, UnitIdFk]);
+        await db.query('INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (?, ?, ?)', [itemName, itemQuantity, UnitIdFk]);
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error adding StoredItem: ' + err.message);
