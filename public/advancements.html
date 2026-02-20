@@ -89,5 +89,29 @@
             <td>3</td>
         </tr>
     </table>
+
+    <script>
+    // Fetch and render advancements table
+    function renderAdvancementsTable() {
+        fetch('/api/advancements')
+            .then(response => response.json())
+            .then(advancements => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                advancements.forEach(advancement => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${Advancements.achievement_id}</td>
+                        <td>${Advancements.name}</td>
+                        <td>${Advancements.description}</td>
+                        <td>${Advancements.progress}</td>
+                        <td>${Advancements.world_id}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', renderAdvancementsTable);
+    </script>
 </body>
 </html>

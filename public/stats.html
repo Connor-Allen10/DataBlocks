@@ -57,7 +57,7 @@
     <script>
     // Fetch and render Statistics table
     function renderStatsTable() {
-        fetch('/api/storeditems')
+        fetch('/api/stats')
             .then(response => response.json())
             .then(stats => {
                 const tbody = document.querySelector('table tbody');
