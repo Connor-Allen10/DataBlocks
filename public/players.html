@@ -1,0 +1,124 @@
+<!DOCTYPE html> <!-- 1 -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>World Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        Navigation:
+        <a href="/home">Home</a>
+        <a href="/players">Players</a>
+        <a href="/worlds">Worlds</a>
+        <a href="/advancements">Advancements</a>
+        <a href="/stats">Statistics</a>
+		<a href="/farms">Farms</a>
+        <a href="/farmitems">Farm Items</a>
+        <a href="/storageunits">Storage Units</a>
+        <a href="/storeditems">Stored Items</a>
+    </nav>
+
+    <h1>Players</h1>
+    <div class="Description">
+        <p>Create and view players.</p>
+    </div>
+
+<!--
+    <form method="GET" action="/players">
+        <label for="selected_player_id">Select World:</label>
+        <select name="selected_player_id" id="selected_player_id">
+            <option value="1">Herobrine</option>
+            <option value="2">Jeb_</option>
+            <option value="3"></option>
+        </select>
+        <input type="submit" value="View Players">
+    </form>
+-->
+
+    <table>
+        <thead>
+            <tr>
+                <th>player_id</th>
+                <th>username</th>
+                <th>world_count</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Herobrine</td>
+                <td>1</td>
+                <td>
+                    <form method="POST" action="/delete-player" style="display:inline;">
+                        <input type="hidden" name="player_id" value="1">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jeb_</td>
+                <td>2</td>
+                <td>
+                    <form method="POST" action="/delete-player" style="display:inline;">
+                        <input type="hidden" name="player_id" value="2">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Steve</td>
+                <td>2</td>
+                <td>
+                    <form method="POST" action="/delete-player" style="display:inline;">
+                        <input type="hidden" name="player_id" value="3">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h2>Add a Player</h2>
+    <form id="add_player_form" method="POST" action="/add-player">
+        <label for="username_input">Username:</label>
+        <input type="text" name="username_input" id="username_input" required>
+
+        <input type="submit" value="Add Player">
+    </form>
+
+    <script>
+    // Fetch and render players table
+    function renderPlayersTable() {
+        fetch('/api/players')
+            .then(response => response.json())
+            .then(players => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${player.player_id}</td>
+                        <td>${player.username}</td>
+                        <td>${player.world_count}</td>
+                        <td>
+                            <form method="POST" action="/delete-player" style="display:inline;">
+                                <input type="hidden" name="player_id" value="${player.player_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', renderPlayersTable);
+    </script>
+
+</body>
+</html>

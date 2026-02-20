@@ -1,0 +1,167 @@
+<!DOCTYPE html> <!-- 1 -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>World Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        Navigation:
+        <a href="/home">Home</a>
+        <a href="/players">Players</a>
+        <a href="/worlds">Worlds</a>
+        <a href="/advancements">Advancements</a>
+        <a href="/stats">Statistics</a>
+		<a href="/farms">Farms</a>
+        <a href="/farmitems">Farm Items</a>
+        <a href="/storageunits">Storage Units</a>
+        <a href="/storeditems">Stored Items</a>
+    </nav>
+
+    <h1>Worlds</h1>
+    <div class="Description">
+        <p>View, add, and delete worlds.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>World ID</th>
+                <th>Player</th>
+                <th>World Name</th>
+                <th>Version</th>
+                <th>Gamemode</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Herobrine</td>
+                <td>horror gameplay</td>
+                <td>1.8.1</td>
+                <td>survival</td>
+                <td>
+                    <form method="POST" action="/delete-world" style="display:inline;">
+                        <input type="hidden" name="world_id" value="1">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jeb_</td>
+                <td>parkour civilization</td>
+                <td>1.7.2</td>
+                <td>creative</td>
+                <td>
+                   <form method="POST" action="/delete-world" style="display:inline;">
+                        <input type="hidden" name="world_id" value="2">
+                        <button type="submit">Delete</button>
+                    </form> 
+                </td>
+                
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jeb_</td>
+                <td>skyblock</td>
+                <td>1.15.5</td>
+                <td>survival</td>
+                <td>
+                   <form method="POST" action="/delete-world" style="display:inline;">
+                        <input type="hidden" name="world_id" value="3">
+                        <button type="submit">Delete</button>
+                    </form> 
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Steve</td>
+                <td>underwater temple</td>
+                <td>1.21.1</td>
+                <td>creative</td>
+                <td>
+                   <form method="POST" action="/delete-world" style="display:inline;">
+                        <input type="hidden" name="world_id" value="4">
+                        <button type="submit">Delete</button>
+                    </form> 
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Steve</td>
+                <td>WIP</td>
+                <td>1.12.3</td>
+                <td>creative</td>
+                <td>
+                   <form method="POST" action="/delete-world" style="display:inline;">
+                        <input type="hidden" name="world_id" value="5">
+                        <button type="submit">Delete</button>
+                    </form> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Add a World</h2>
+    <form id="add_world_form" method="POST" action="/add-world">
+        <label for="name_input">World Name:</label>
+        <input type="text" name="name_input" id="name_input" required>
+
+        <label for="gamemode_input">Gamemode:</label>
+        <select name="gamemode_input" id="gamemode_input" required>
+            <option value="">Select Gamemode</option>
+            <option value="Survival">Survival</option>
+            <option value="Creative">Creative</option>
+            <option value="Hardcore">Hardcore</option>
+            <option value="Adventure">Adventure</option>
+        </select>
+
+        <label for="version_input">Version:</label>
+        <input type="text" name="version_input" id="version_input" required>
+
+        <label for="selected_player_id">Player:</label>
+        <select name="selected_player_id" id="selected_player_id" required>
+            <option value="1">Steve</option>
+            <option value="2">Alex</option>
+        </select>
+
+        <input type="submit" value="Add World">
+    </form>
+
+<script>
+    // Fetch and render worlds table
+    function renderWorldsTable() {
+        fetch('/api/worlds')
+            .then(response => response.json())
+            .then(worlds => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                worlds.forEach(world => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${world.world_id}</td>
+                        <td>${world.name}</td>
+                        <td>${world.version}</td>
+                        <td>${world.gamemode}</td>
+                        <td>${world.player_id}</td>
+                        <td>
+                            <form method="POST" action="/delete-world" style="display:inline;">
+                                <input type="hidden" name="world_id" value="${world.world_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', renderWorldsTable);
+    </script>
+
+</body>
+</html>
