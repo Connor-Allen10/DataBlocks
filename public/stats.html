@@ -24,7 +24,7 @@
         <p>View, update, and delete statistics for a selected world.</p>
     </div>
 
-    <h2>World Statistics</h2>
+    <!--<h2>World Statistics</h2>
 
     <form method="GET" action="/stats">
         <label for="selected_world_id">Select World:</label>
@@ -33,7 +33,7 @@
             <option value="2">parkour civilization</option>
         </select>
         <input type="submit" value="View Statistics">
-    </form>
+    </form>-->
 
     <table>
         <thead>
@@ -54,7 +54,31 @@
         </tbody>
     </table>
 
-    <h2>Update Statistics</h2>
+    <script>
+    // Fetch and render Statistics table
+    function renderStatsTable() {
+        fetch('/api/storeditems')
+            .then(response => response.json())
+            .then(stats => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                stats.forEach(stat => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${Statistics.statistic_id}</td>
+                        <td>${Statistics.blocks_mined}</td>
+                        <td>${Statistics.distance_travelled}</td>
+                        <td>${Statistics.mob_slain}</td>
+                        <td>${Statistics.days_elapsed}</td>
+                        <td>${Statistics.world_id}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', renderStatsTable);
+    </script>
+    <!--<h2>Update Statistics</h2>
 
     <form method="POST" action="/update-statistics">
 
@@ -147,7 +171,7 @@
         </select>
 
         <input type="submit" value="Update Advancement">
-    </form>
+    </form>-->
 
 </body>
 </html>
