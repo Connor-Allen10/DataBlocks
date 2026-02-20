@@ -187,6 +187,32 @@ app.post('/delete-world', async function (req, res) {
     }
 });
 
+// Add farm items (POST)
+app.post('/add-farmItem', async function (req, res) {
+    const db = require('./db-connector');
+    const itemFarmName = req.body.item_name;
+    const itemYield = req.body.item_yield_per_hour;
+    const FarmIdFk = req.body.farm_id;
+    try {
+        await db.query('INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (?, ?)', [itemFarmName, itemYield, FarmIdFk]);
+        res.redirect('/farmitems');
+    } catch (err) {
+        res.status(500).send('Error adding FarmItems: ' + err.message);
+    }
+});
+
+// Delete farm items (POST)
+app.post('/delete-farmItem', async function (req, res) {
+    const db = require('./db-connector');
+    const farmItemId = req.body.farm_item_id;
+    try {
+        await db.query('DELETE FROM FarmItems WHERE farm_item_id = ?', [farmItemId]);
+        res.redirect('/farmitems');
+    } catch (err) {
+        res.status(500).send('Error deleting FarmItems: ' + err.message);
+    }
+});
+
 // Add StorageUnit (POST)
 app.post('/add-StorageUnits', async function (req, res) {
     const db = require('./db-connector');
@@ -200,7 +226,7 @@ app.post('/add-StorageUnits', async function (req, res) {
         await db.query('INSERT INTO StorageUnits (storage_type , storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (?, ?)', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk]);
         res.redirect('/storageunits');
     } catch (err) {
-        res.status(500).send('Error adding Storage Unit: ' + err.message);
+        res.status(500).send('Error adding StorageUnit: ' + err.message);
     }
 });
 
@@ -212,7 +238,7 @@ app.post('/delete-StorageUnits', async function (req, res) {
         await db.query('DELETE FROM StorageUnits WHERE storage_id = ?', [StorageUnitId]);
         res.redirect('/storageunits');
     } catch (err) {
-        res.status(500).send('Error deleting Storage Unit: ' + err.message);
+        res.status(500).send('Error deleting StorageUnit: ' + err.message);
     }
 });
 
@@ -226,7 +252,7 @@ app.post('/add-StoredItems', async function (req, res) {
         await db.query('INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (?, ?)', [itemName, itemQuantity, UnitIdFk]);
         res.redirect('/storeditems');
     } catch (err) {
-        res.status(500).send('Error adding Storage Unit: ' + err.message);
+        res.status(500).send('Error adding StoredItem: ' + err.message);
     }
 });
 
@@ -238,7 +264,7 @@ app.post('/delete-StoredItems', async function (req, res) {
         await db.query('DELETE FROM StoredItems WHERE stored_item_id = ?', [storedItemId]);
         res.redirect('/storeditems');
     } catch (err) {
-        res.status(500).send('Error deleting Stored Item: ' + err.message);
+        res.status(500).send('Error deleting StoredItem: ' + err.message);
     }
 });
 

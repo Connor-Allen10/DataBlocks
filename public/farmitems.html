@@ -24,12 +24,15 @@
         <p>Unique items from each farm</p>
     </div>
     <table>
-        <tr>
-            <th>FarmItemID</th>
-            <th>Item Name</th>
-            <th>Yield Per Hour</th>
-            <th>FarmID</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>FarmItemID</th>
+                <th>Item Name</th>
+                <th>Yield Per Hour</th>
+                <th>FarmID</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
         <tr>
             <td>1</td>
             <td>Rotten Flesh</td>
@@ -68,6 +71,19 @@
         </tr>
     </table>
 
+    <h2>Add a farm item</h2>
+    <form id="add_farm_item_form" method="POST" action="/add-farmItem">
+        <label for="item_name_input">item name:</label>
+        <input type="text" name="item_name_input" id="item_name_input" required>
+
+        <label for="item_yeild_input">items yielded per hour:</label>
+        <input type="number" name="item_yield_input" id="item_yeild_input" required>
+        <label for="item_farm_id_input">farm id:</label>
+        <input type="text" name="item_farm_id_input" id="item_farm_id_input" required>
+
+        <input type="submit" value="Add farm item">
+    </form>
+
     <script>
     // Fetch and render farm items table
     function renderFarmItemsTable() {
@@ -83,6 +99,12 @@
                         <td>${farmitem.item_name}</td>
                         <td>${farmitem.item_yield_per_hour}</td>
                         <td>${farmitem.farm_id}</td>
+                        <td>
+                            <form method="POST" action="/delete-farmItem" style="display:inline;">
+                                <input type="hidden" name="farm_item_id" value="${farmitem.farm_item_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     `;
                     tbody.appendChild(row);
                 });
