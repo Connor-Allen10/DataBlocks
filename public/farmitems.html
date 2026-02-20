@@ -67,5 +67,28 @@
             <td>5</td>
         </tr>
     </table>
+
+    <script>
+    // Fetch and render farm items table
+    function renderFarmItemsTable() {
+        fetch('/api/farmitems')
+            .then(response => response.json())
+            .then(farmitems => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                farmitems.forEach(farmitem => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${FarmItems.farm_item_id}</td>
+                        <td>${FarmItems.item_name}</td>
+                        <td>${FarmItems.item_yield_per_hour}</td>
+                        <td>${FarmItems.farm_id}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', rendeFarmItemsTable);
+    </script>
 </body>
 </html>
