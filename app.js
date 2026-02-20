@@ -242,6 +242,33 @@ app.post('/delete-StoredItems', async function (req, res) {
     }
 });
 
+// Add Advancement (POST)
+app.post('/add-advancement', async function (req, res) {
+    const db = require('./db-connector');
+    const name = req.body.name_input;
+    const description = req.body.description_input;
+    const progress = req.body.progress_input;
+    const world_id = req.body.world_id_input;
+    try {
+        await db.query('INSERT INTO Advancements (name, description, progress, world_id) VALUES (?, ?, ?, ?)', [name, description, progress, world_id]);
+        res.redirect('/advancements');
+    } catch (err) {
+        res.status(500).send('Error adding Advancement: ' + err.message);
+    }
+});
+
+// Delete Advancement (POST)
+app.post('/delete-advancement', async function (req, res) {
+    const db = require('./db-connector');
+    const advancement_id = req.body.achievement_id;
+    try {
+        await db.query('DELETE FROM Advancements WHERE achievement_id = ?', [advancement_id]);
+        res.redirect('/advancements');
+    } catch (err) {
+        res.status(500).send('Error deleting Advancements: ' + err.message);
+    }
+});
+
 /*
     LISTENER
 */

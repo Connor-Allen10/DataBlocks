@@ -90,6 +90,23 @@
         </tr>
     </table>
 
+    <h2>Add an Advancement</h2>
+    <form id="add_advancement_form" method="POST" action="/add-advancement">
+        <label for="name_input">Advancement Name</label>
+        <input type="text" name="name_input" id="name_input" required>
+        
+        <label for="description_input">Advancement Description:</label>
+        <input type="text" name="description_input" id="description_input" required>
+
+        <label for="progress_input">% Progress</label>
+        <input type="number" name="progress_input" id="progress_input" required>
+
+        <label for="world_id_input">World Id:</label>
+        <input type="number" name="world_id_input" id="world_id_input" required>
+
+        <input type="submit" value="Add advancement">
+    </form>
+
     <script>
     // Fetch and render advancements table
     function renderAdvancementsTable() {
@@ -106,6 +123,12 @@
                             <td>${advancement.description}</td>
                             <td>${advancement.progress}</td>
                             <td>${advancement.world_id}</td>
+                            <td>
+                                <form method="POST" action="/delete-advancement" style="display:inline;">
+                                    <input type="hidden" name="achievement_id" value="${advancement.achievement_id}">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
                         `;
                     tbody.appendChild(row);
                 });
