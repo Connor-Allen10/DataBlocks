@@ -190,9 +190,9 @@ app.post('/delete-world', async function (req, res) {
 // Add farm items (POST)
 app.post('/add-farmItem', async function (req, res) {
     const db = require('./db-connector');
-    const itemFarmName = req.body.item_name;
-    const itemYield = req.body.item_yield_per_hour;
-    const FarmIdFk = req.body.farm_id;
+    const itemFarmName = req.body.item_name_input;
+    const itemYield = req.body.item_yield_input;
+    const FarmIdFk = req.body.item_farm_id_input;
     try {
         await db.query('INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (?, ?, ?)', [itemFarmName, itemYield, FarmIdFk]);
         res.redirect('/farmitems');
