@@ -6,21 +6,25 @@
 </head>
 
 <body>
-
     <nav>
         Navigation:
         <a href="/home">Home</a>
-        <a href="/player">Worlds</a>
-        <a href="/stats">stats</a>
-		<a href="/farms">farms and items</a>
+        <a href="/players">Players</a>
+        <a href="/worlds">Worlds</a>
+        <a href="/advancements">Advancements</a>
+        <a href="/stats">Statistics</a>
+		<a href="/farms">Farms</a>
+        <a href="/farmitems">Farm Items</a>
+        <a href="/storageunits">Storage Units</a>
+        <a href="/storeditems">Stored Items</a>
     </nav>
 
     <h1>Farms</h1>
-    <div class="FarmsDescription">
+    <div class="Description">
         <p>View farms for a selected world, add new farms, and remove farms.</p>
     </div>
 
-    <form method="GET" action="/Farms">
+    <form method="GET" action="/farms">
         <label for="selected_world_id">Select World:</label>
         <select name="selected_world_id" id="selected_world_id">
             <option value="1">SurvivalLand</option>
@@ -32,48 +36,54 @@
     <table>
         <thead>
             <tr>
-                <th>item_name</th>
-                <th>yield_per_hour</th>
-                <th>x</th>
-                <th>y</th>
-                <th>z</th>
-                <th>is_loaded</th>
-                <th></th>
+                <th>FarmID</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Z</th>
+                <th>Is Loaded</th>
+                <th>WorldID</th>
             </tr>
         </thead>
-
         <tbody>
             <tr>
-                <td>Rotten Flesh</td>
-                <td>723</td>
+                <td>1</td>
                 <td>-146</td>
                 <td>73</td>
                 <td>2573</td>
                 <td>1</td>
-
-                <form method="POST" action="/delete-farm">
-                    <input type="hidden" name="selected_world_id" value="1">
-                    <input type="hidden" name="selected_farm_id" value="3">
-                    <td>
-                        <button type="submit">Delete</button>
-                    </td>
-                </form>
+                <td>1</td>
             </tr>
             <tr>
-                <td>iron ingot</td>
-                <td>39</td>
-                <td>-146</td>
-                <td>73</td>
-                <td>2573</td>
+                <td>2</td>
+                <td>-3955</td>
+                <td>51</td>
+                <td>4</td>
+                <td>0</td>
                 <td>1</td>
-
-                <form method="POST" action="/delete-farm">
-                    <input type="hidden" name="selected_world_id" value="1">
-                    <input type="hidden" name="selected_farm_id" value="3">
-                    <td>
-                        <button type="submit">Delete</button>
-                    </td>
-                </form>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>-293</td>
+                <td>92</td>
+                <td>-30</td>
+                <td>0</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>246</td>
+                <td>83</td>
+                <td>-93</td>
+                <td>0</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>16</td>
+                <td>125</td>
+                <td>-34</td>
+                <td>1</td>
+                <td>5</td>
             </tr>
         </tbody>
     </table>

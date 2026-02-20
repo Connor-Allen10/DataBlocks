@@ -9,19 +9,24 @@
     <nav>
         Navigation:
         <a href="/home">Home</a>
-        <a href="/player">Worlds</a>
-        <a href="/stats">stats</a>
-		<a href="/farms">farms and items</a>
+        <a href="/players">Players</a>
+        <a href="/worlds">Worlds</a>
+        <a href="/advancements">Advancements</a>
+        <a href="/stats">Statistics</a>
+		<a href="/farms">Farms</a>
+        <a href="/farmitems">Farm Items</a>
+        <a href="/storageunits">Storage Units</a>
+        <a href="/storeditems">Stored Items</a>
     </nav>
 
     <h1>Statistics</h1>
-    <div class="StatisticsDescription">
+    <div class="Description">
         <p>View, update, and delete statistics for a selected world.</p>
     </div>
 
     <h2>World Statistics</h2>
 
-    <form method="GET" action="/Statistics">
+    <form method="GET" action="/stats">
         <label for="selected_world_id">Select World:</label>
         <select name="selected_world_id" id="selected_world_id">
             <option value="1">horror gameplay</option>
@@ -37,38 +42,15 @@
                 <th>distance_travelled</th>
                 <th>mob_slain</th>
                 <th>days_elapsed</th>
-                <th></th>
+                <th>world_id</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>9983</td>
-                <td>100023</td>
-                <td>14389</td>
-                <td>183</td>
-
-                <form method="POST" action="/delete-statistics">
-                    <input type="hidden" name="selected_world_id" value="1">
-                    <td>
-                        <button type="submit">Delete</button>
-                    </td>
-                </form>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr>
-                <td>1382674</td>
-                <td>38427</td>
-                <td>4</td>
-                <td>9</td>
-
-                <form method="POST" action="/delete-statistics">
-                    <input type="hidden" name="selected_world_id" value="1">
-                    <td>
-                        <button type="submit">Delete</button>
-                    </td>
-                </form>
-            </tr>
+            <tr><td>9983</td><td>100023</td><td>14389</td><td>183</td><td>1</td></tr>
+            <tr><td>1382674</td><td>38427</td><td>4</td><td>9</td><td>2</td></tr>
+            <tr><td>1332</td><td>302</td><td>168</td><td>497</td><td>3</td></tr>
+            <tr><td>142</td><td>5357</td><td>183</td><td>10</td><td>4</td></tr>
+            <tr><td>16</td><td>2537</td><td>0</td><td>2</td><td>5</td></tr>
         </tbody>
     </table>
 
@@ -108,19 +90,18 @@
                 <th>name</th>
                 <th>description</th>
                 <th>progress</th>
+                <th>world_id</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Subspace Bubble</td>
-                <td>Use the Nether to travel 7 km in the Overworld</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>Acquire Hardware</td>
-                <td>Smelt an Iron Ingot</td>
-                <td>100</td>
-            </tr>
+            <tr><td>Subspace Bubble</td><td>Use the Nether to travel 7 km in the Overworld</td><td>0</td><td>1</td></tr>
+            <tr><td>Hidden in the Depths</td><td>Obtain Ancient Debris</td><td>100</td><td>1</td></tr>
+            <tr><td>The End?</td><td>Enter the End Portal</td><td>100</td><td>1</td></tr>
+            <tr><td>Acquire Hardware</td><td>Smelt an Iron Ingot</td><td>100</td><td>1</td></tr>
+            <tr><td>Stone Age</td><td>Mine Stone with your new Pickaxe</td><td>100</td><td>3</td></tr>
+            <tr><td>We Need to Go Deeper</td><td>Build, light and enter a Nether Portal</td><td>0</td><td>3</td></tr>
+            <tr><td>Cover Me with Diamonds</td><td>Diamond armor saves lives</td><td>50</td><td>3</td></tr>
+            <tr><td>Enchanter</td><td>Enchant an item at an Enchanting Table</td><td>0</td><td>3</td></tr>
         </tbody>
     </table>
 
