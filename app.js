@@ -5,6 +5,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+// const db = require('./db-connector');
 const PORT = 18413;
 
 app.use(express.urlencoded({ extended: true }));
@@ -15,14 +16,61 @@ app.use(express.static(path.join(__dirname, 'public')));
     ROUTES
 */
 
+// ===========
+// NAVIGATION
+// ===========
+
 // Home page
 app.get(['/', '/home'], function (req, res) {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
 // Players page 
-app.get('/Worlds', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'player.html'));
+app.get('/players', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'players.html'));
+});
+
+// API endpoint to get all players as JSON
+app.get('/api/players', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM Players');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Worlds page
+app.get('/worlds', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'worlds.html'));
+});
+
+// API endpoint to get all worlds as JSON
+app.get('/api/worlds', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM Worlds');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Advancements page
+app.get('/advancements', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'advancements.html'));
+});
+
+// API endpoint to get all advancements as JSON
+app.get('/api/advancements', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM Advancements');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Stats page
@@ -30,9 +78,113 @@ app.get('/stats', function (req, res) {
     res.sendFile(path.join(__dirname, 'public', 'stats.html'));
 });
 
-//Farms page
+// API endpoint to get all statistics as JSON
+app.get('/api/statistics', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM Statistics');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Farms page
 app.get('/farms', function (req, res) {
     res.sendFile(path.join(__dirname, 'public', 'farms.html'));
+});
+
+// FarmItems page
+app.get('/farmitems', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'farmitems.html'));
+});
+
+// API endpoint to get all farm items as JSON
+app.get('/api/farmitems', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM FarmItems');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// StorageUnits page
+app.get('/storageunits', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'storageunits.html'));
+});
+
+// StoredItems page
+app.get('/storeditems', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'storeditems.html'));
+});
+
+// API endpoint to get all stored items as JSON
+app.get('/api/storeditems', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query('SELECT * FROM StoredItems');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ==========
+// ADD/DELETE
+// ==========
+
+
+// Add Player (POST)
+app.post('/add-player', async function (req, res) {
+    const db = require('./db-connector');
+    const username = req.body.username_input;
+    try {
+        await db.query('INSERT INTO Players (world_count, username) VALUES (?, ?)', [0, username]);
+        res.redirect('/players');
+    } catch (err) {
+        res.status(500).send('Error adding player: ' + err.message);
+    }
+});
+
+// Delete Player (POST)
+app.post('/delete-player', async function (req, res) {
+    const db = require('./db-connector');
+    const playerId = req.body.player_id;
+    try {
+        await db.query('DELETE FROM Players WHERE player_id = ?', [playerId]);
+        res.redirect('/players');
+    } catch (err) {
+        res.status(500).send('Error deleting player: ' + err.message);
+    }
+});
+
+// Add World (POST)
+app.post('/add-world', async function (req, res) {
+    const db = require('./db-connector');
+    const name = req.body.name_input;
+    const gamemode = req.body.gamemode_input;
+    const version = req.body.version_input;
+    const player_id = req.body.selected_player_id;
+    try {
+        await db.query('INSERT INTO Worlds (name, gamemode, version, player_id) VALUES (?, ?, ?, ?)', [name, gamemode, version, player_id]);
+        res.redirect('/worlds');
+    } catch (err) {
+        res.status(500).send('Error adding world: ' + err.message);
+    }
+});
+
+// Delete World (POST)
+app.post('/delete-world', async function (req, res) {
+    const db = require('./db-connector');
+    const worldId = req.body.world_id;
+    try {
+        await db.query('DELETE FROM Worlds WHERE world_id = ?', [worldId]);
+        res.redirect('/worlds');
+    } catch (err) {
+        res.status(500).send('Error deleting world: ' + err.message);
+    }
 });
 
 /*
