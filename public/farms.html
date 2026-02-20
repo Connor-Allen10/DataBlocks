@@ -24,15 +24,6 @@
         <p>View farms for a selected world, add new farms, and remove farms.</p>
     </div>
 
-    <form method="GET" action="/farms">
-        <label for="selected_world_id">Select World:</label>
-        <select name="selected_world_id" id="selected_world_id">
-            <option value="1">SurvivalLand</option>
-            <option value="2">CreativeWorld</option>
-        </select>
-        <input type="submit" value="View Farms">
-    </form>
-
     <table>
         <thead>
             <tr>
@@ -88,7 +79,32 @@
         </tbody>
     </table>
 
-    <h2>Add a New Farm</h2>
+    <script>
+    // Fetch and render advancements table
+    function renderfarmsTable() {
+        fetch('/api/farms')
+            .then(response => response.json())
+            .then(farms => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                farms.forEach(farm => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${Farms.farm_id}</td>
+                        <td>${Farms.x_coordinate}</td>
+                        <td>${Farms.y_coordinate}</td>
+                        <td>${Farms.z_coordinate}</td>
+                        <td>${Farms.is_loaded}</td>
+                        <td>${Farms.world_id}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', rendeFarmsTable);
+    </script>
+    
+    <!--<h2>Add a New Farm</h2>
 
     <form method="POST" action="/add-farm">
 
@@ -191,7 +207,7 @@
                 <td>32</td>
             </tr>
         </tbody>
-    </table>
+    </table>-->
 
 </body>
 </html>
