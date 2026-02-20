@@ -187,6 +187,35 @@ app.post('/delete-world', async function (req, res) {
     }
 });
 
+// Add StorageUnit (POST)
+app.post('/add-StorageUnits', async function (req, res) {
+    const db = require('./db-connector');
+    const storeType = req.body.type_input;
+    const storeSlot = req.body.slot_input;
+    const storeX = req.body.store_x_input;
+    const storeY = req.body.store_y_input;
+    const storeZ = req.body.store_z_input;
+    const worldIdFk = req.body.world_id_input;
+    try {
+        await db.query('INSERT INTO StorageUnits (storage_type , storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (?, ?)', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk]);
+        res.redirect('/storageunits');
+    } catch (err) {
+        res.status(500).send('Error adding Storage Unit: ' + err.message);
+    }
+});
+
+// Delete StorageUnit (POST)
+app.post('/delete-StorageUnits', async function (req, res) {
+    const db = require('./db-connector');
+    const StorageUnitId = req.body.storage_id;
+    try {
+        await db.query('DELETE FROM StorageUnits WHERE storage_id = ?', [StorageUnitId]);
+        res.redirect('/storageunits');
+    } catch (err) {
+        res.status(500).send('Error deleting Storage Unit: ' + err.message);
+    }
+});
+
 /*
     LISTENER
 */

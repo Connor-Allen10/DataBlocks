@@ -81,5 +81,57 @@
             <td>5</td>
         </tr>
     </table>
+
+    <h2>Add a storage unit</h2>
+    <form id="add_storage_unit_form" method="POST" action="/add-StorageUnits">
+        <label for="type_input">Storage Type:</label>
+        <input type="text" name="type_input" id="type_input" required>
+        <label for="slot_input">Amount of storage slots:</label>
+        <input type="number" name="slot_input" id="slot_input" required>
+
+        <label for="store_x_input">x coords:</label>
+        <input type="number" name="store_x_input" id="store_x_input" required>
+        <label for="store_y_input">y coords:</label>
+        <input type="number" name="store_y_input" id="store_y_input" required>
+        <label for="store_z_input">z coords:</label>
+        <input type="number" name="store_z_input" id="store_z_input" required>
+
+        <label for="world_id_input">World Id:</label>
+        <input type="number" name="world_id_input" id="world_id_input" required>
+
+        <input type="submit" value="Add storage unit">
+    </form>
+
+    <script>
+    // Fetch and render storage units table
+    function renderStorageUnitsTable() {
+        fetch('/api/storageunits')
+            .then(response => response.json())
+            .then(players => {
+                const tbody = document.querySelector('table tbody');
+                tbody.innerHTML = '';
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${StorageUnits.storage_id}</td>
+                        <td>${StorageUnits.storage_type}</td>
+                        <td>${StorageUnits.storage_slots}</td>
+                        <td>${StorageUnits.x_coordinate}</td>
+                        <td>${StorageUnits.y_coordinate}</td>
+                        <td>${StorageUnits.z_coordinate}</td>
+                        <td>${StorageUnits.world_id}</td>
+                        <td>
+                            <form method="POST" action="/delete-StorageUnits" style="display:inline;">
+                                <input type="hidden" name="storage_id" value="${StorageUnits.storage_id}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+    }
+    document.addEventListener('DOMContentLoaded', renderStorageUnitsTable);
+    </script>
 </body>
 </html>
