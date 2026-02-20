@@ -65,12 +65,12 @@
                 stats.forEach(stat => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${Statistics.statistic_id}</td>
-                        <td>${Statistics.blocks_mined}</td>
-                        <td>${Statistics.distance_travelled}</td>
-                        <td>${Statistics.mob_slain}</td>
-                        <td>${Statistics.days_elapsed}</td>
-                        <td>${Statistics.world_id}</td>
+                        <td>${stat.statistic_id}</td>
+                        <td>${stat.blocks_mined}</td>
+                        <td>${stat.distance_travelled}</td>
+                        <td>${stat.mob_slain}</td>
+                        <td>${stat.days_elapsed}</td>
+                        <td>${stat.world_id}</td>
                     `;
                     tbody.appendChild(row);
                 });

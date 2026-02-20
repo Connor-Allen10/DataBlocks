@@ -26,16 +26,18 @@
     </div>
 
     <table>
-        <tr>
-            <th>StorageID</th>
-            <th>Type</th>
-            <th>Slots</th>
-            <th>X</th>
-            <th>Y</th>
-            <th>Z</th>
-            <th>WorldID</th>
-            <th>Delete</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>StorageID</th>
+                <th>Type</th>
+                <th>Slots</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Z</th>
+                <th>WorldID</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
         <tr>
             <td>1</td>
             <td>double chest</td>
@@ -44,6 +46,12 @@
             <td>73</td>
             <td>2574</td>
             <td>1</td>
+            <td>
+                <form method="POST" action="/delete-StorageUnits" style="display:inline;">
+                    <input type="hidden" name="storage_id" value="1">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         <tr>
             <td>2</td>
@@ -53,6 +61,12 @@
             <td>51</td>
             <td>5</td>
             <td>1</td>
+            <td>
+                <form method="POST" action="/delete-StorageUnits" style="display:inline;">
+                    <input type="hidden" name="storage_id" value="2">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         <tr>
             <td>3</td>
@@ -62,6 +76,12 @@
             <td>92</td>
             <td>-30</td>
             <td>3</td>
+            <td>
+                <form method="POST" action="/delete-StorageUnits" style="display:inline;">
+                    <input type="hidden" name="storage_id" value="3">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         <tr>
             <td>4</td>
@@ -71,6 +91,12 @@
             <td>80</td>
             <td>-80</td>
             <td>3</td>
+            <td>
+                <form method="POST" action="/delete-StorageUnits" style="display:inline;">
+                    <input type="hidden" name="storage_id" value="4">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         <tr>
             <td>5</td>
@@ -80,6 +106,12 @@
             <td>118</td>
             <td>-34</td>
             <td>5</td>
+            <td>
+                <form method="POST" action="/delete-StorageUnits" style="display:inline;">
+                    <input type="hidden" name="storage_id" value="5">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
     </table>
 
@@ -114,16 +146,16 @@
                 storageunits.forEach(storageunit => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${StorageUnits.storage_id}</td>
-                        <td>${StorageUnits.storage_type}</td>
-                        <td>${StorageUnits.storage_slots}</td>
-                        <td>${StorageUnits.x_coordinate}</td>
-                        <td>${StorageUnits.y_coordinate}</td>
-                        <td>${StorageUnits.z_coordinate}</td>
-                        <td>${StorageUnits.world_id}</td>
+                        <td>${storageunit.storage_id}</td>
+                        <td>${storageunit.storage_type}</td>
+                        <td>${storageunit.storage_slots}</td>
+                        <td>${storageunit.x_coordinate}</td>
+                        <td>${storageunit.y_coordinate}</td>
+                        <td>${storageunit.z_coordinate}</td>
+                        <td>${storageunit.world_id}</td>
                         <td>
                             <form method="POST" action="/delete-StorageUnits" style="display:inline;">
-                                <input type="hidden" name="storage_id" value="${StorageUnits.storage_id}">
+                                <input type="hidden" name="storage_id" value="${storageunit.storage_id}">
                                 <button type="submit">Delete</button>
                             </form>
                         </td>
@@ -133,6 +165,7 @@
             });
     }
     document.addEventListener('DOMContentLoaded', renderStorageUnitsTable);
+
     </script>
 </body>
 </html>
