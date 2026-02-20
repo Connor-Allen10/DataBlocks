@@ -99,18 +99,18 @@
                 tbody.innerHTML = '';
                 storeditems.forEach(storeditem => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${StoredItems.stored_item_id}</td>
-                        <td>${StoredItems.item_name}</td>
-                        <td>${StoredItems.quantity}</td>
-                        <td>${StoredItems.storage_id}</td>
-                        <td>
-                            <form method="POST" action="/delete-StoredItems" style="display:inline;">
-                                <input type="hidden" name="stored_item_id" value="${StoredItems.stored_item_id}">
-                                <button type="submit">Delete</button>
-                            </form>
-                        </td>
-                    `;
+                        row.innerHTML = `
+                            <td>${storeditem.stored_item_id}</td>
+                            <td>${storeditem.item_name}</td>
+                            <td>${storeditem.quantity}</td>
+                            <td>${storeditem.storage_id}</td>
+                            <td>
+                                <form method="POST" action="/delete-StoredItems" style="display:inline;">
+                                    <input type="hidden" name="stored_item_id" value="${storeditem.stored_item_id}">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        `;
                     tbody.appendChild(row);
                 });
             });

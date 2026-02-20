@@ -100,13 +100,13 @@
                 tbody.innerHTML = '';
                 advancements.forEach(advancement => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${Advancements.achievement_id}</td>
-                        <td>${Advancements.name}</td>
-                        <td>${Advancements.description}</td>
-                        <td>${Advancements.progress}</td>
-                        <td>${Advancements.world_id}</td>
-                    `;
+                        row.innerHTML = `
+                            <td>${advancement.achievement_id}</td>
+                            <td>${advancement.name}</td>
+                            <td>${advancement.description}</td>
+                            <td>${advancement.progress}</td>
+                            <td>${advancement.world_id}</td>
+                        `;
                     tbody.appendChild(row);
                 });
             });
