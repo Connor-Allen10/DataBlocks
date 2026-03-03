@@ -71,3 +71,7 @@ button {
 button:hover {
     background-color: #c0392b;
 }
+
+.reset_button {
+    color: rgba(255, 0, 0, 0.833)
+}
