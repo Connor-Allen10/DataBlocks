@@ -372,6 +372,17 @@ app.post('/delete-farm', async function (req, res) {
     }
 });
 
+// RESET SCHEMA
+app.get('/reset', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        await db.query('CALL sp_reset_schema();');
+        res.send('<h2>Database reset successful!</h2><a href="/home">Return Home</a>');
+    } catch (err) {
+        res.status(500).send('Error resetting database: ' + err.message);
+    }
+});
+
 /*
     LISTENER
 */
