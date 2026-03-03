@@ -9,103 +9,102 @@
 
 
 -- Get show every player
-SELECT player_id, username, world_count
-FROM Players
-ORDER BY player_id;
+SELECT * FROM Players;
 
 -- create a new player
-INSERT INTO Players (username, world_count)
-VALUES (username_input, 0);
+INSERT INTO Players (world_count, username) VALUES (0, username);
+
+
+-- delete a new player
+DELETE FROM Players WHERE player_id = playerId;
+
 
 -- Worlds
 
 
 -- Get all the worlds from every player
-SELECT Players.username, name, version, gamemode
-FROM worlds
-INNER JOIN Players ON Worlds.player_id = Players.player_id
-ORDER BY world_id;
+SELECT * FROM Worlds;
 
 -- Add a new world
-INSERT INTO World (name, gamemode, version, player_id)
-VALUES (name_input, gamemode_input, version_input, selected_player_id);
+INSERT INTO Worlds (name, gamemode, version, player_id) VALUES (name, gamemode, version, player_id);
 
 -- remove a world
-DELETE FROM World
-WHERE world_id = selected_world_id;
+DELETE FROM Worlds WHERE world_id = worldId;
 
 
 -- Statistics
 
 
 -- Get all statistics from selected world
-SELECT blocks_mined, distance_travelled, mob_slain, days_elapsed
-FROM Statistics
-WHERE world_id = selected_world_id;
+SELECT * FROM Statistics;
 
 -- Update statistics
-UPDATE Statistics
-SET blocks_mined = input_blocks_mined,
-    distance_travelled = descriptionInput,
-    mob_slain = conditionInput,
-    days_elapsed = categoryInput
-WHERE world_id = selected_world_id;
+INSERT INTO Statistics (blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id) VALUES (blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id);
 
 -- delete statistics table
-DELETE FROM Statistics
-WHERE world_id = selected_world_id;
+DELETE FROM Statistics WHERE statistic_id = statistic_id;
 
 
 -- Advancements
 
 
--- Get all transactions with item and borrower info
-SELECT name, description, progress
-FROM Advancements
-ORDER BY world_id;
+-- Get all advancements from selected world
+SELECT * FROM Advancements;
 
 -- Add a new advancement
-INSERT INTO Advancements (name, description, progress, world_id)
-VALUES (name_input, description_input, progress_input, selected_world_id);
+INSERT INTO Advancements (name, description, progress, world_id) VALUES (name, description, progress, world_id);
 
 -- Update an advancement
-UPDATE Advancements
-SET progress = progress_input,
-WHERE world_id = selected_world_id;
+DELETE FROM Advancements WHERE achievement_id = advancement_id;
 
 
--- Farms/FarmItems
+-- Farms
 
 
-SELECT FarmItems.item_name, FarmItems.ote,_yield_per_hour, x_coordinate, y_coordinate, z_coordinate, is_loaded
-FROM Farms
-INNER JOIN FarmItems ON FarmItems.farm_id = Farms.farm_id
-WHERE world_id = selected_world_id
-ORDER BY farm_id;
+-- Get all farms from selected world
+SELECT * FROM Farms;
 
 -- Add a new farm
-INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id)
-VALUES (x_coordinate_input, y_coordinate_input, z_coordinate_input, is_loaded_input, selected_world_id);
+INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id) VALUES (x, y, z, is_loaded, world_id);
 
 -- remove a farm
-DELETE FROM Farms
-WHERE world_id = selected_world_id
-AND farm_id = selected_farm_id;
+DELETE FROM Farms WHERE farm_id = farm_id;
 
 
---StorageUnits/StoredItems
+-- Farm items
 
 
-SELECT storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate,
-FROM StorageUnits
-WHERE world_id = selected_world_id
-ORDER BY storage_id;
+-- Get all farm items from selected world
+SELECT * FROM FarmItems;
+
+-- Add a new farm
+INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (itemFarmName, itemYield, FarmIdFk);
+
+-- remove a farm
+DELETE FROM FarmItems WHERE farm_item_id = farmItemId;
+
+
+--StorageUnits
+
+
+-- Get all farm items from selected world
+SELECT * FROM StorageUnits;
+
+-- Add a new Storage unit
+INSERT INTO StorageUnits (storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (storeType, storeSlot, storeX, storeY, storeZ, worldIdFk);
+
+-- delete a Storage unit
+DELETE FROM StorageUnits WHERE storage_id = StorageUnitId;
 
 
 --StoredItems
 
 
-SELECT item_name, quantity
-FROM StoredItems
-WHERE world_id = selected_world_id
-ORDER BY storage_id;
+-- Get all Stored items from selected world
+SELECT * FROM StoredItems;
+
+-- Add a new Stored item
+INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (itemName, itemQuantity, UnitIdFk);
+
+-- delete a new Stored item
+DELETE FROM StoredItems WHERE stored_item_id = storedItemId;
