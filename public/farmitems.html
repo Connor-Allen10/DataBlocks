@@ -40,13 +40,14 @@
 
     <h2>Add a farm item</h2>
     <form id="add_farm_item_form" method="POST" action="/add-farmItem">
-        <label for="item_name_input">item name:</label>
-        <input type="text" name="item_name_input" id="item_name_input" required>
+    	<label for="item_name_input">item name:</label>
+    	<input type="text" name="item_name_input" id="item_name_input" required>
 
-        <label for="item_yeild_input">items yielded per hour:</label>
-        <input type="number" name="item_yield_input" id="item_yeild_input" required>
-        <label for="item_farm_id_input">farm id:</label>
-        <input type="text" name="item_farm_id_input" id="item_farm_id_input" required>
+    	<label for="item_yield_input">items yielded per hour:</label>
+    	<input type="number" name="item_yield_input" id="item_yield_input" required>
+
+    	<label for="item_farm_id_input">farm id:</label>
+    	<input type="text" name="item_farm_id_input" id="item_farm_id_input" required>
 
         <input type="submit" value="Add farm item">
     </form>
