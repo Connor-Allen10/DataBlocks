@@ -341,10 +341,10 @@ app.post('/edit-statistic', async function (req, res) {
     const days_elapsed = req.body.days_elapsed_input;
     const statistic_id = req.body.statistic_id_input;
     try {
-        await db.query('UPDATE Statistics SET ?, distance_travelled = ?, mob_slain = ?, days_elapsed = ? WHERE statistic_id = ?', [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id]);
+        await db.query('UPDATE Statistics SET blocks_mined = ?, distance_travelled = ?, mob_slain = ?, days_elapsed = ? WHERE statistic_id = ?', [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id]);
         res.redirect('/stats');
     } catch (err) {
-        res.status(500).send('Error adding statistic: ' + err.message);
+        res.status(500).send('Error editing statistic: ' + err.message);
     }
 });
 
