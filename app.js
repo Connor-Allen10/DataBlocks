@@ -332,6 +332,21 @@ app.post('/add-statistic', async function (req, res) {
     }
 });
 
+// edit Statistic (POST)
+app.post('/edit-statistic', async function (req, res) {
+    const db = require('./db-connector');
+    const blocks_mined = req.body.blocks_mined_input;
+    const distance_travelled = req.body.distance_travelled_input;
+    const mob_slain = req.body.mob_slain_input;
+    const days_elapsed = req.body.days_elapsed_input;
+    try {
+        await db.query('UPDATE Statistics SET ?, distance_travelled = ?, mob_slain = ?, days_elapsed = ? WHERE statistic_id = ?', [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id]);
+        res.redirect('/stats');
+    } catch (err) {
+        res.status(500).send('Error adding statistic: ' + err.message);
+    }
+});
+
 // Delete Statistic (POST)
 app.post('/delete-statistic', async function (req, res) {
     const db = require('./db-connector');

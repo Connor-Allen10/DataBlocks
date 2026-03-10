@@ -73,6 +73,26 @@
             <input type="submit" value="Add Statistic">
         </form>
 
+    <h2>Edit Statistic</h2>
+        <form id="edit_statistic_form" method="POST" action="/edit-statistic">
+            <label for="statistics ID">statistics_id:</label>
+            <input type="number" name="statistic_id" id="statistic_id" required>
+
+            <label for="blocks_mined_input">Blocks Mined:</label>
+            <input type="number" name="blocks_mined_input" id="blocks_mined_input" required>
+
+            <label for="distance_travelled_input">Distance Travelled:</label>
+            <input type="number" name="distance_travelled_input" id="distance_travelled_input" required>
+
+            <label for="mob_slain_input">Mob Slain:</label>
+            <input type="number" name="mob_slain_input" id="mob_slain_input" required>
+
+            <label for="days_elapsed_input">Days Elapsed:</label>
+            <input type="number" name="days_elapsed_input" id="days_elapsed_input" required>
+
+            <input type="submit" value="Edit Statistic">
+        </form>
+
     <script>
     // Fetch and render Statistics table
     function renderStatsTable() {
