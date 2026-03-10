@@ -339,6 +339,7 @@ app.post('/edit-statistic', async function (req, res) {
     const distance_travelled = req.body.distance_travelled_input;
     const mob_slain = req.body.mob_slain_input;
     const days_elapsed = req.body.days_elapsed_input;
+    const statistic_id = req.body.statistic_id_input;
     try {
         await db.query('UPDATE Statistics SET ?, distance_travelled = ?, mob_slain = ?, days_elapsed = ? WHERE statistic_id = ?', [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id]);
         res.redirect('/stats');
