@@ -172,12 +172,23 @@ app.post('/add-player', async function (req, res) {
 // Delete Player (POST)
 app.post('/delete-player', async function (req, res) {
     const db = require('./db-connector');
-    const playerId = req.body.player_id;
+    const playerId = Number(req.body.player_id);
+    if (!Number.isInteger(playerId) || playerId <= 0) {
+        return res.status(400).send('Invalid player ID');
+    }
+
+    const connection = await db.getConnection();
     try {
-        await db.query('DELETE FROM Players WHERE player_id = ?', [playerId]);
+        await connection.beginTransaction();
+        await connection.query('DELETE FROM Worlds WHERE player_id = ?', [playerId]);
+        await connection.query('DELETE FROM Players WHERE player_id = ?', [playerId]);
+        await connection.commit();
         res.redirect('/players');
     } catch (err) {
+        await connection.rollback();
         res.status(500).send('Error deleting player: ' + err.message);
+    } finally {
+        connection.release();
     }
 });
 
