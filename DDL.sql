@@ -6,10 +6,10 @@
 
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS sp_reset_schema//
 CREATE PROCEDURE sp_reset_schema()
 BEGIN
     SET FOREIGN_KEY_CHECKS=0;
-    SET AUTOCOMMIT = 0;
 
     DROP TABLE IF EXISTS Players;
     CREATE TABLE Players (
@@ -25,7 +25,7 @@ BEGIN
         gamemode VARCHAR(10) NOT NULL,
         version VARCHAR(10) NOT NULL,
         player_id INT NOT NULL,
-        FOREIGN KEY (player_id) REFERENCES Players(player_id)
+        FOREIGN KEY (player_id) REFERENCES Players(player_id) ON DELETE CASCADE
     );
 
     DROP TABLE IF EXISTS Statistics;
@@ -167,6 +167,7 @@ BEGIN
     ('bow', 1, 5);
 
     SET FOREIGN_KEY_CHECKS=1;
-    COMMIT;
 END //
 DELIMITER ;
+
+CALL sp_reset_schema();
