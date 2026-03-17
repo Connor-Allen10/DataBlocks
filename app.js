@@ -51,7 +51,7 @@ app.get('/api/worlds', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_worlds()');
-        rres.json(rows[0]);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -197,7 +197,7 @@ app.post('/edit-player', async function (req, res) {
     const player_id = req.body.player_id;
     const username = req.body.username_input;
     try {
-        await db.query('CALL pl_update_player(username, player_id)');
+        await db.query('CALL pl_update_player(?, ?)', [username, player_id]);
         res.redirect('/players');
     } catch (err) {
         res.status(500).send('Error editing player: ' + err.message);
@@ -212,7 +212,7 @@ app.post('/add-world', async function (req, res) {
     const version = req.body.version_input;
     const player_id = req.body.selected_player_id;
     try {
-        await db.query('CALL pl_add_world(name, gamemode, version, player_id)');
+        await db.query('CALL pl_add_world(?, ?, ?, ?)', [name, gamemode, version, player_id]);
         res.redirect('/worlds');
     } catch (err) {
         res.status(500).send('Error adding world: ' + err.message);
@@ -224,7 +224,7 @@ app.post('/delete-world', async function (req, res) {
     const db = require('./db-connector');
     const worldId = req.body.world_id;
     try {
-        await db.query('CALL pl_delete_world(worldId)');
+        await db.query('CALL pl_delete_world(?)', [worldId]);
         res.redirect('/worlds');
     } catch (err) {
         res.status(500).send('Error deleting world: ' + err.message);
@@ -240,7 +240,7 @@ app.post('/edit-world', async function (req, res) {
     const version = req.body.version_input;
     const player_id = req.body.selected_player_id;
     try {
-        await db.query('CALL pl_update_world(name, gamemode, version, player_id, world_id)');
+        await db.query('CALL pl_update_world(?, ?, ?, ?, ?)', [name, gamemode, version, player_id, world_id]);
         res.redirect('/worlds');
     } catch (err) {
         res.status(500).send('Error editing world: ' + err.message);
@@ -254,7 +254,7 @@ app.post('/add-farmItem', async function (req, res) {
     const itemYield = req.body.item_yield_input;
     const FarmIdFk = req.body.item_farm_id_input;
     try {
-        await db.query('CALL pl_add_FarmItem(itemFarmName, itemYield, FarmIdFk)');
+        await db.query('CALL pl_add_FarmItem(?, ?, ?)', [itemFarmName, itemYield, FarmIdFk]);
         res.redirect('/farmitems');
     } catch (err) {
         res.status(500).send('Error adding FarmItems: ' + err.message);
