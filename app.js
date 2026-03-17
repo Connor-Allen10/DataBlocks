@@ -180,7 +180,7 @@ app.post('/delete-player', async function (req, res) {
     const connection = await db.getConnection();
     try {
         await connection.beginTransaction();
-        await connection.query('CALL pl_delete_player(playerId)');
+        await connection.query('CALL pl_delete_player(?)', [playerId]);
         await connection.commit();
         res.redirect('/players');
     } catch (err) {
