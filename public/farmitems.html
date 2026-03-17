@@ -47,12 +47,55 @@
         <label for="item_yield_input">items yielded per hour:</label>
         <input type="number" name="item_yield_input" id="item_yield_input" required>
         <label for="item_farm_id_input">farm id:</label>
-        <input type="text" name="item_farm_id_input" id="item_farm_id_input" required>
+        <select name="item_farm_id_input" id="item_farm_id_input" required>
+            <option value="">Select a Farm</option>
+        </select>
 
         <input type="submit" value="Add farm item">
     </form>
 
+    <h2>Edit Farm Item</h2>
+    <form id="edit_farm_item_form" method="POST" action="/edit-farmItem">
+        <label for="farm_item_id_input">Farm Item ID:</label>
+        <input type="number" name="farm_item_id" id="farm_item_id_input" required>
+
+        <label for="item_name_input_edit">Item Name:</label>
+        <input type="text" name="item_name_input" id="item_name_input_edit" required>
+
+        <label for="item_yield_input_edit">Items Yielded Per Hour:</label>
+        <input type="number" name="item_yield_input" id="item_yield_input_edit" required>
+
+        <label for="item_farm_id_input_edit">Farm ID:</label>
+        <select name="item_farm_id_input" id="item_farm_id_input_edit" required>
+            <option value="">Select a Farm</option>
+        </select>
+
+        <input type="submit" value="Edit Farm Item">
+    </form>
+
     <script>
+    // Populate farm ID dropdowns
+    function populateFarmDropdowns() {
+        fetch('/api/farms')
+            .then(response => response.json())
+            .then(farms => {
+                const addSelect = document.getElementById('item_farm_id_input');
+                const editSelect = document.getElementById('item_farm_id_input_edit');
+                
+                farms.forEach(farm => {
+                    const option1 = document.createElement('option');
+                    option1.value = farm.farm_id;
+                    option1.textContent = `${farm.farm_id} - World ${farm.world_id}`;
+                    addSelect.appendChild(option1);
+                    
+                    const option2 = document.createElement('option');
+                    option2.value = farm.farm_id;
+                    option2.textContent = `${farm.farm_id} - World ${farm.world_id}`;
+                    editSelect.appendChild(option2);
+                });
+            });
+    }
+
     // Fetch and render farm items table
     function renderFarmItemsTable() {
         fetch('/api/farmitems')
@@ -78,7 +121,11 @@
                 });
             });
     }
-    document.addEventListener('DOMContentLoaded', renderFarmItemsTable);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        populateFarmDropdowns();
+        renderFarmItemsTable();
+    });
     </script>
 </body>
 </html>

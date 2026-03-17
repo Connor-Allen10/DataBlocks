@@ -60,12 +60,64 @@
             </select>
 
             <label for="world_id_input">World ID:</label>
-            <input type="number" name="world_id_input" id="world_id_input" required>
+            <select name="world_id_input" id="world_id_input" required>
+                <option value="">Select a World</option>
+            </select>
 
             <input type="submit" value="Add Farm">
         </form>
 
+    <h2>Edit Farm</h2>
+        <form id="edit_farm_form" method="POST" action="/edit-farm">
+            <label for="farm_id_input">Farm ID:</label>
+            <input type="number" name="farm_id" id="farm_id_input" required>
+
+            <label for="x_coordinate_input_edit">X Coordinate:</label>
+            <input type="number" name="x_coordinate_input" id="x_coordinate_input_edit" required>
+
+            <label for="y_coordinate_input_edit">Y Coordinate:</label>
+            <input type="number" name="y_coordinate_input" id="y_coordinate_input_edit" required>
+
+            <label for="z_coordinate_input_edit">Z Coordinate:</label>
+            <input type="number" name="z_coordinate_input" id="z_coordinate_input_edit" required>
+
+            <label for="is_loaded_input_edit">Is Loaded:</label>
+            <select name="is_loaded_input" id="is_loaded_input_edit" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="world_id_input_edit">World ID:</label>
+            <select name="world_id_input" id="world_id_input_edit" required>
+                <option value="">Select a World</option>
+            </select>
+
+            <input type="submit" value="Edit Farm">
+        </form>
+
     <script>
+    // Populate world ID dropdowns
+    function populateWorldDropdowns() {
+        fetch('/api/worlds')
+            .then(response => response.json())
+            .then(worlds => {
+                const addSelect = document.getElementById('world_id_input');
+                const editSelect = document.getElementById('world_id_input_edit');
+                
+                worlds.forEach(world => {
+                    const option1 = document.createElement('option');
+                    option1.value = world.world_id;
+                    option1.textContent = `${world.world_id} - ${world.name}`;
+                    addSelect.appendChild(option1);
+                    
+                    const option2 = document.createElement('option');
+                    option2.value = world.world_id;
+                    option2.textContent = `${world.world_id} - ${world.name}`;
+                    editSelect.appendChild(option2);
+                });
+            });
+    }
+
     // Fetch and render farms table
     function renderFarmsTable() {
         fetch('/api/farms')
@@ -93,7 +145,11 @@
                 });
             });
     }
-    document.addEventListener('DOMContentLoaded', renderFarmsTable);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        populateWorldDropdowns();
+        renderFarmsTable();
+    });
     </script>
     
     <!--<h2>Add a New Farm</h2>

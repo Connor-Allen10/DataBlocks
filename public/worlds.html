@@ -127,14 +127,63 @@
 
         <label for="selected_player_id">Player:</label>
         <select name="selected_player_id" id="selected_player_id" required>
-            <option value="1">Steve</option>
-            <option value="2">Alex</option>
+            <option value="">Select a Player</option>
         </select>
 
         <input type="submit" value="Add World">
     </form>
 
+    <h2>Edit World</h2>
+    <form id="edit_world_form" method="POST" action="/edit-world">
+        <label for="world_id_input">World ID:</label>
+        <input type="number" name="world_id" id="world_id_input" required>
+
+        <label for="name_input_edit">World Name:</label>
+        <input type="text" name="name_input" id="name_input_edit" required>
+
+        <label for="gamemode_input_edit">Gamemode:</label>
+        <select name="gamemode_input" id="gamemode_input_edit" required>
+            <option value="">Select Gamemode</option>
+            <option value="Survival">Survival</option>
+            <option value="Creative">Creative</option>
+            <option value="Hardcore">Hardcore</option>
+            <option value="Adventure">Adventure</option>
+        </select>
+
+        <label for="version_input_edit">Version:</label>
+        <input type="text" name="version_input" id="version_input_edit" required>
+
+        <label for="selected_player_id_edit">Player:</label>
+        <select name="selected_player_id" id="selected_player_id_edit" required>
+            <option value="">Select a Player</option>
+        </select>
+
+        <input type="submit" value="Edit World">
+    </form>
+
 <script>
+    // Populate player ID dropdowns
+    function populatePlayerDropdowns() {
+        fetch('/api/players')
+            .then(response => response.json())
+            .then(players => {
+                const addSelect = document.getElementById('selected_player_id');
+                const editSelect = document.getElementById('selected_player_id_edit');
+                
+                players.forEach(player => {
+                    const option1 = document.createElement('option');
+                    option1.value = player.player_id;
+                    option1.textContent = player.username;
+                    addSelect.appendChild(option1);
+                    
+                    const option2 = document.createElement('option');
+                    option2.value = player.player_id;
+                    option2.textContent = player.username;
+                    editSelect.appendChild(option2);
+                });
+            });
+    }
+
     // Fetch and render worlds table
     function renderWorldsTable() {
         fetch('/api/worlds')
@@ -161,8 +210,12 @@
                 });
             });
     }
-    document.addEventListener('DOMContentLoaded', renderWorldsTable);
-    </script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        populatePlayerDropdowns();
+        renderWorldsTable();
+    });
+</script>
 
 </body>
 </html>

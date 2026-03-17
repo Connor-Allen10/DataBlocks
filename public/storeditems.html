@@ -48,12 +48,55 @@
         <input type="number" name="quantity_input" id="quantity_input" required>
 
         <label for="unit_id_input">Storage Unit Id:</label>
-        <input type="number" name="unit_id_input" id="unit_id_input" required>
+        <select name="unit_id_input" id="unit_id_input" required>
+            <option value="">Select a Storage Unit</option>
+        </select>
 
         <input type="submit" value="Add stored item">
     </form>
 
+    <h2>Edit Stored Item</h2>
+    <form id="edit_stored_item_form" method="POST" action="/edit-StoredItems">
+        <label for="stored_item_id_input">Stored Item ID:</label>
+        <input type="number" name="stored_item_id" id="stored_item_id_input" required>
+
+        <label for="item_name_input_edit">Item Name:</label>
+        <input type="text" name="item_name_input" id="item_name_input_edit" required>
+
+        <label for="quantity_input_edit">Item Quantity:</label>
+        <input type="number" name="quantity_input" id="quantity_input_edit" required>
+
+        <label for="unit_id_input_edit">Storage Unit ID:</label>
+        <select name="unit_id_input" id="unit_id_input_edit" required>
+            <option value="">Select a Storage Unit</option>
+        </select>
+
+        <input type="submit" value="Edit Stored Item">
+    </form>
+
     <script>
+    // Populate storage unit ID dropdowns
+    function populateStorageUnitDropdowns() {
+        fetch('/api/storageunits')
+            .then(response => response.json())
+            .then(storageunits => {
+                const addSelect = document.getElementById('unit_id_input');
+                const editSelect = document.getElementById('unit_id_input_edit');
+                
+                storageunits.forEach(unit => {
+                    const option1 = document.createElement('option');
+                    option1.value = unit.storage_id;
+                    option1.textContent = `${unit.storage_id} - ${unit.storage_type} (World ${unit.world_id})`;
+                    addSelect.appendChild(option1);
+                    
+                    const option2 = document.createElement('option');
+                    option2.value = unit.storage_id;
+                    option2.textContent = `${unit.storage_id} - ${unit.storage_type} (World ${unit.world_id})`;
+                    editSelect.appendChild(option2);
+                });
+            });
+    }
+
     // Fetch and render storage items table
     function renderStorageItemsTable() {
         fetch('/api/storeditems')
@@ -86,7 +129,11 @@
                 tbody.innerHTML = `<tr><td colspan=\"5\">Error loading stored items: ${error.message}</td></tr>`;
             });
     }
-    document.addEventListener('DOMContentLoaded', renderStorageItemsTable);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        populateStorageUnitDropdowns();
+        renderStorageItemsTable();
+    });
     </script>
 </body>
 </html>

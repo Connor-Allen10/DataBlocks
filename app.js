@@ -192,6 +192,19 @@ app.post('/delete-player', async function (req, res) {
     }
 });
 
+// Edit Player (POST)
+app.post('/edit-player', async function (req, res) {
+    const db = require('./db-connector');
+    const player_id = req.body.player_id;
+    const username = req.body.username_input;
+    try {
+        await db.query('UPDATE Players SET username = ? WHERE player_id = ?', [username, player_id]);
+        res.redirect('/players');
+    } catch (err) {
+        res.status(500).send('Error editing player: ' + err.message);
+    }
+});
+
 // Add World (POST)
 app.post('/add-world', async function (req, res) {
     const db = require('./db-connector');
@@ -219,6 +232,22 @@ app.post('/delete-world', async function (req, res) {
     }
 });
 
+// Edit World (POST)
+app.post('/edit-world', async function (req, res) {
+    const db = require('./db-connector');
+    const world_id = req.body.world_id;
+    const name = req.body.name_input;
+    const gamemode = req.body.gamemode_input;
+    const version = req.body.version_input;
+    const player_id = req.body.selected_player_id;
+    try {
+        await db.query('UPDATE Worlds SET name = ?, gamemode = ?, version = ?, player_id = ? WHERE world_id = ?', [name, gamemode, version, player_id, world_id]);
+        res.redirect('/worlds');
+    } catch (err) {
+        res.status(500).send('Error editing world: ' + err.message);
+    }
+});
+
 // Add farm items (POST)
 app.post('/add-farmItem', async function (req, res) {
     const db = require('./db-connector');
@@ -242,6 +271,21 @@ app.post('/delete-farmItem', async function (req, res) {
         res.redirect('/farmitems');
     } catch (err) {
         res.status(500).send('Error deleting FarmItems: ' + err.message);
+    }
+});
+
+// Edit farm items (POST)
+app.post('/edit-farmItem', async function (req, res) {
+    const db = require('./db-connector');
+    const farm_item_id = req.body.farm_item_id;
+    const itemFarmName = req.body.item_name_input;
+    const itemYield = req.body.item_yield_input;
+    const FarmIdFk = req.body.item_farm_id_input;
+    try {
+        await db.query('UPDATE FarmItems SET item_name = ?, item_yield_per_hour = ?, farm_id = ? WHERE farm_item_id = ?', [itemFarmName, itemYield, FarmIdFk, farm_item_id]);
+        res.redirect('/farmitems');
+    } catch (err) {
+        res.status(500).send('Error editing FarmItems: ' + err.message);
     }
 });
 
@@ -274,6 +318,24 @@ app.post('/delete-StorageUnits', async function (req, res) {
     }
 });
 
+// Edit StorageUnit (POST)
+app.post('/edit-StorageUnits', async function (req, res) {
+    const db = require('./db-connector');
+    const storage_id = req.body.storage_id;
+    const storeType = req.body.type_input;
+    const storeSlot = req.body.slot_input;
+    const storeX = req.body.store_x_input;
+    const storeY = req.body.store_y_input;
+    const storeZ = req.body.store_z_input;
+    const worldIdFk = req.body.world_id_input;
+    try {
+        await db.query('UPDATE StorageUnits SET storage_type = ?, storage_slots = ?, x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, world_id = ? WHERE storage_id = ?', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk, storage_id]);
+        res.redirect('/storageunits');
+    } catch (err) {
+        res.status(500).send('Error editing StorageUnit: ' + err.message);
+    }
+});
+
 // Add StoredItems (POST)
 app.post('/add-StoredItems', async function (req, res) {
     const db = require('./db-connector');
@@ -297,6 +359,21 @@ app.post('/delete-StoredItems', async function (req, res) {
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error deleting StoredItem: ' + err.message);
+    }
+});
+
+// Edit StoredItems (POST)
+app.post('/edit-StoredItems', async function (req, res) {
+    const db = require('./db-connector');
+    const stored_item_id = req.body.stored_item_id;
+    const itemName = req.body.item_name_input;
+    const itemQuantity = req.body.quantity_input;
+    const UnitIdFk = req.body.unit_id_input;
+    try {
+        await db.query('UPDATE StoredItems SET item_name = ?, quantity = ?, storage_id = ? WHERE stored_item_id = ?', [itemName, itemQuantity, UnitIdFk, stored_item_id]);
+        res.redirect('/storeditems');
+    } catch (err) {
+        res.status(500).send('Error editing StoredItem: ' + err.message);
     }
 });
 
@@ -324,6 +401,22 @@ app.post('/delete-advancement', async function (req, res) {
         res.redirect('/advancements');
     } catch (err) {
         res.status(500).send('Error deleting Advancements: ' + err.message);
+    }
+});
+
+// Edit Advancement (POST)
+app.post('/edit-advancement', async function (req, res) {
+    const db = require('./db-connector');
+    const achievement_id = req.body.achievement_id;
+    const name = req.body.name_input;
+    const description = req.body.description_input;
+    const progress = req.body.progress_input;
+    const world_id = req.body.world_id_input;
+    try {
+        await db.query('UPDATE Advancements SET name = ?, description = ?, progress = ?, world_id = ? WHERE achievement_id = ?', [name, description, progress, world_id, achievement_id]);
+        res.redirect('/advancements');
+    } catch (err) {
+        res.status(500).send('Error editing Advancement: ' + err.message);
     }
 });
 
@@ -396,6 +489,23 @@ app.post('/delete-farm', async function (req, res) {
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error deleting farm: ' + err.message);
+    }
+});
+
+// Edit Farm (POST)
+app.post('/edit-farm', async function (req, res) {
+    const db = require('./db-connector');
+    const farm_id = req.body.farm_id;
+    const x = req.body.x_coordinate_input;
+    const y = req.body.y_coordinate_input;
+    const z = req.body.z_coordinate_input;
+    const is_loaded = req.body.is_loaded_input;
+    const world_id = req.body.world_id_input;
+    try {
+        await db.query('UPDATE Farms SET x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, is_loaded = ?, world_id = ? WHERE farm_id = ?', [x, y, z, is_loaded, world_id, farm_id]);
+        res.redirect('/farms');
+    } catch (err) {
+        res.status(500).send('Error editing farm: ' + err.message);
     }
 });
 

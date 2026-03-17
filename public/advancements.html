@@ -53,12 +53,58 @@
         <input type="number" name="progress_input" id="progress_input" required>
 
         <label for="world_id_input">World Id:</label>
-        <input type="number" name="world_id_input" id="world_id_input" required>
+        <select name="world_id_input" id="world_id_input" required>
+            <option value="">Select a World</option>
+        </select>
 
         <input type="submit" value="Add advancement">
     </form>
 
+    <h2>Edit Advancement</h2>
+    <form id="edit_advancement_form" method="POST" action="/edit-advancement">
+        <label for="achievement_id_input">Achievement ID:</label>
+        <input type="number" name="achievement_id" id="achievement_id_input" required>
+
+        <label for="name_input_edit">Advancement Name:</label>
+        <input type="text" name="name_input" id="name_input_edit" required>
+
+        <label for="description_input_edit">Advancement Description:</label>
+        <input type="text" name="description_input" id="description_input_edit" required>
+
+        <label for="progress_input_edit">% Progress:</label>
+        <input type="number" name="progress_input" id="progress_input_edit" required>
+
+        <label for="world_id_input_edit">World ID:</label>
+        <select name="world_id_input" id="world_id_input_edit" required>
+            <option value="">Select a World</option>
+        </select>
+
+        <input type="submit" value="Edit Advancement">
+    </form>
+
     <script>
+    // Populate world ID dropdowns
+    function populateWorldDropdowns() {
+        fetch('/api/worlds')
+            .then(response => response.json())
+            .then(worlds => {
+                const addSelect = document.getElementById('world_id_input');
+                const editSelect = document.getElementById('world_id_input_edit');
+                
+                worlds.forEach(world => {
+                    const option1 = document.createElement('option');
+                    option1.value = world.world_id;
+                    option1.textContent = `${world.world_id} - ${world.name}`;
+                    addSelect.appendChild(option1);
+                    
+                    const option2 = document.createElement('option');
+                    option2.value = world.world_id;
+                    option2.textContent = `${world.world_id} - ${world.name}`;
+                    editSelect.appendChild(option2);
+                });
+            });
+    }
+
     // Fetch and render advancements table
     function renderAdvancementsTable() {
         fetch('/api/advancements')
@@ -85,7 +131,11 @@
                 });
             });
     }
-    document.addEventListener('DOMContentLoaded', renderAdvancementsTable);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        populateWorldDropdowns();
+        renderAdvancementsTable();
+    });
     </script>
 </body>
 </html>
