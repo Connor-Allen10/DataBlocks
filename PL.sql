@@ -319,7 +319,7 @@ CREATE PROCEDURE pl_update_FarmItem(
 BEGIN
     UPDATE FarmItems
     SET item_name = itemFarmName_input, item_yield_per_hour = itemYield_input, farm_id = FarmIdFk_input
-    WHERE farm_item_id = ;
+    WHERE farm_item_id = farm_item_id_input;
 END //
 DELIMITER ;
 
@@ -335,4 +335,6 @@ END //
 DELIMITER ;
 
 
--- 
+-- StorageUnit
+
+
