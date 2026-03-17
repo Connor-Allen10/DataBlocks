@@ -174,7 +174,51 @@ DELIMITER ;
 -- Players
 
 
-hh
+-- select procedure for player
+DROP PROCEDURE IF EXISTS pl_get_players;
+DELIMITER //
+CREATE PROCEDURE pl_get_players()
+BEGIN
+    SELECT * FROM Players;
+END //
+DELIMITER ;
+
+-- add procedure for a player
+DROP PROCEDURE IF EXISTS pl_add_player;
+DELIMITER //
+CREATE PROCEDURE pl_add_player(
+    IN username_input VARCHAR(16)
+)
+BEGIN
+    INSERT INTO Players (world_count, username) VALUES (0, username_input);
+END //
+DELIMITER ;
+
+-- update procedure for a player
+DROP PROCEDURE IF EXISTS pl_update_player;
+DELIMITER //
+CREATE PROCEDURE pl_update_player(
+    IN username_input VARCHAR(16),
+    IN player_id_input INT
+)
+BEGIN
+    UPDATE Players
+    SET username = username_input
+    WHERE player_id = player_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for a player
+DROP PROCEDURE IF EXISTS pl_delete_player;
+DELIMITER //
+CREATE PROCEDURE pl_delete_player(
+    IN player_id_input INT
+)
+BEGIN
+    DELETE FROM Worlds WHERE player_id = player_id_input;
+    DELETE FROM Players WHERE player_id = player_id_input;
+END //
+DELIMITER ;
 
 
 -- Worlds
@@ -228,56 +272,6 @@ CREATE PROCEDURE pl_delete_world(
 )
 BEGIN
     DELETE FROM Worlds WHERE world_id = world_id_input;
-END //
-DELIMITER ;
-
-
--- Farm Items
-
-
--- select procedure for Farm Items
-DROP PROCEDURE IF EXISTS pl_get_players;
-DELIMITER //
-CREATE PROCEDURE pl_get_players()
-BEGIN
-    SELECT * FROM Players;
-END //
-DELIMITER ;
-
--- add procedure for a Farm Item
-DROP PROCEDURE IF EXISTS pl_add_player;
-DELIMITER //
-CREATE PROCEDURE pl_add_player(
-    IN username_input VARCHAR(16)
-)
-BEGIN
-    INSERT INTO Players (world_count, username) VALUES (0, username_input);
-END //
-DELIMITER ;
-
--- update procedure for a Farm Item
-DROP PROCEDURE IF EXISTS pl_update_player;
-DELIMITER //
-CREATE PROCEDURE pl_update_player(
-    IN username_input VARCHAR(16),
-    IN player_id_input INT
-)
-BEGIN
-    UPDATE Players
-    SET username = username_input
-    WHERE player_id = player_id_input;
-END //
-DELIMITER ;
-
--- delete procedure for a Farm Item
-DROP PROCEDURE IF EXISTS pl_delete_player;
-DELIMITER //
-CREATE PROCEDURE pl_delete_player(
-    IN player_id_input INT
-)
-BEGIN
-    DELETE FROM Worlds WHERE player_id = player_id_input;
-    DELETE FROM Players WHERE player_id = player_id_input;
 END //
 DELIMITER ;
 
@@ -394,4 +388,4 @@ END //
 DELIMITER ;
 
 
--- 
+-- Stored Items
