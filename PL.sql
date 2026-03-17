@@ -338,3 +338,60 @@ DELIMITER ;
 -- StorageUnit
 
 
+-- select procedure for StorageUnits
+DROP PROCEDURE IF EXISTS pl_get_StorageUnits;
+DELIMITER //
+CREATE PROCEDURE pl_get_StorageUnits()
+BEGIN
+    SELECT * FROM StorageUnits;
+END //
+DELIMITER ;
+
+-- add procedure for a StorageUnit
+DROP PROCEDURE IF EXISTS pl_add_StorageUnit;
+DELIMITER //
+CREATE PROCEDURE pl_add_StorageUnit(
+    IN storeType VARCHAR(32),
+    IN storeSlot INT,
+    IN storeX INT,
+    IN storeY INT,
+    IN storeZ INT,
+    IN worldIdFk INT
+)
+BEGIN
+    INSERT INTO StorageUnits (storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (storeType, storeSlot, storeX, storeY, storeZ, worldIdFk);
+END //
+DELIMITER ;
+
+-- update procedure for a StorageUnit
+DROP PROCEDURE IF EXISTS pl_update_StorageUnit;
+DELIMITER //
+CREATE PROCEDURE pl_update_StorageUnit(
+    IN storeType VARCHAR(32),
+    IN storeSlot INT,
+    IN storeX INT,
+    IN storeY INT,
+    IN storeZ INT,
+    IN worldIdFk INT,
+    IN storageId INT
+)
+BEGIN
+    UPDATE StorageUnits
+    SET storage_type = storeType, storage_slots = storeSlot, x_coordinate = storeX, y_coordinate = storeY, z_coordinate = storeZ, world_id = worldIdFk
+    WHERE storage_id = storageId;
+END //
+DELIMITER ;
+
+-- delete procedure for a StorageUnit
+DROP PROCEDURE IF EXISTS pl_delete_StorageUnit;
+DELIMITER //
+CREATE PROCEDURE pl_delete_StorageUnit(
+    IN StorageUnit_id_input INT
+)
+BEGIN
+    DELETE FROM StorageUnits WHERE StorageUnit_id = StorageUnit_id_input;
+END //
+DELIMITER ;
+
+
+-- 
