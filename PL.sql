@@ -4,6 +4,7 @@
 -- Connor Allen, Lucas Feldsein
 -- ============================================
 
+-- reset procedure
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_reset_schema//
 CREATE PROCEDURE sp_reset_schema()
@@ -168,3 +169,57 @@ BEGIN
     SET FOREIGN_KEY_CHECKS=1;
 END //
 DELIMITER ;
+
+
+-- Players
+
+
+-- select procedure for player
+DROP PROCEDURE IF EXISTS pl_get_players;
+DELIMITER //
+CREATE PROCEDURE pl_get_players()
+BEGIN
+    SELECT * FROM Players;
+END //
+DELIMITER ;
+
+-- add procedure for a player
+DROP PROCEDURE IF EXISTS pl_add_player;
+DELIMITER //
+CREATE PROCEDURE pl_add_player(
+    IN username_input VARCHAR(16)
+)
+BEGIN
+    INSERT INTO Players (world_count, username) VALUES (0, username_input);
+END //
+DELIMITER ;
+
+-- update procedure for Sessions
+DROP PROCEDURE IF EXISTS sp_update_session;
+DELIMITER //
+CREATE PROCEDURE sp_update_session(
+    IN username_input VARCHAR(16),
+    IN player_id_input INT
+)
+BEGIN
+    UPDATE Players
+    SET username = username_input
+    WHERE player_id = player_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for sessions
+DROP PROCEDURE IF EXISTS sp_delete_player;
+DELIMITER //
+CREATE PROCEDURE sp_delete_player(
+    IN player_id_input INT
+)
+BEGIN
+    DELETE FROM Worlds WHERE player_id = player_id_input;
+    DELETE FROM Players WHERE player_id = player_id_input;
+END //
+DELIMITER ;
+
+
+-- Worlds
+

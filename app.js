@@ -34,7 +34,7 @@ app.get('/players', function (req, res) {
 app.get('/api/players', async function (req, res) {
     const db = require('./db-connector');
     try {
-        const [rows] = await db.query('SELECT * FROM Players');
+        const [rows] = await db.query('CALL pl_get_players()');
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -162,7 +162,7 @@ app.post('/add-player', async function (req, res) {
     const db = require('./db-connector');
     const username = req.body.username_input;
     try {
-        await db.query('INSERT INTO Players (world_count, username) VALUES (?, ?)', [0, username]);
+        await db.query('CALL pl_add_player(username)');
         res.redirect('/players');
     } catch (err) {
         res.status(500).send('Error adding player: ' + err.message);
@@ -180,8 +180,7 @@ app.post('/delete-player', async function (req, res) {
     const connection = await db.getConnection();
     try {
         await connection.beginTransaction();
-        await connection.query('DELETE FROM Worlds WHERE player_id = ?', [playerId]);
-        await connection.query('DELETE FROM Players WHERE player_id = ?', [playerId]);
+        await connection.query('CALL sp_delete_player(playerId)');
         await connection.commit();
         res.redirect('/players');
     } catch (err) {
@@ -198,7 +197,7 @@ app.post('/edit-player', async function (req, res) {
     const player_id = req.body.player_id;
     const username = req.body.username_input;
     try {
-        await db.query('UPDATE Players SET username = ? WHERE player_id = ?', [username, player_id]);
+        await db.query('CALL sp_update_session(username, player_id)');
         res.redirect('/players');
     } catch (err) {
         res.status(500).send('Error editing player: ' + err.message);
