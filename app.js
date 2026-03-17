@@ -472,7 +472,7 @@ app.post('/add-farm', async function (req, res) {
     const is_loaded = req.body.is_loaded_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id) VALUES (?, ?, ?, ?, ?)', [x, y, z, is_loaded, world_id]);
+        await db.query('CALL pl_add_Farm(x, y, z, is_loaded, world_id)');
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error adding farm: ' + err.message);
@@ -484,7 +484,7 @@ app.post('/delete-farm', async function (req, res) {
     const db = require('./db-connector');
     const farm_id = req.body.farm_id;
     try {
-        await db.query('DELETE FROM Farms WHERE farm_id = ?', [farm_id]);
+        await db.query('CALL pl_delete_Farm(farm_id)');
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error deleting farm: ' + err.message);
@@ -501,7 +501,7 @@ app.post('/edit-farm', async function (req, res) {
     const is_loaded = req.body.is_loaded_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('UPDATE Farms SET x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, is_loaded = ?, world_id = ? WHERE farm_id = ?', [x, y, z, is_loaded, world_id, farm_id]);
+        await db.query('CALL pl_update_Farm(x, y, z, is_loaded, world_id, farm_id)');
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error editing farm: ' + err.message);

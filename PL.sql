@@ -555,3 +555,55 @@ DELIMITER ;
 -- Farms
 
 
+-- select procedure for Farms
+DROP PROCEDURE IF EXISTS pl_get_Farms;
+DELIMITER //
+CREATE PROCEDURE pl_get_Farms()
+BEGIN
+    SELECT * FROM Farms;
+END //
+DELIMITER ;
+
+-- add procedure for a Farm
+DROP PROCEDURE IF EXISTS pl_add_Farm;
+DELIMITER //
+CREATE PROCEDURE pl_add_Farm(
+    IN x INT,
+    IN y INT,
+    IN z INT,
+    IN is_loaded_input TINYINT(1),
+    IN world_id_input INT
+)
+BEGIN
+    INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id) VALUES (x, y, z, is_loaded_input, world_id_input);
+END //
+DELIMITER ;
+
+-- update procedure for a Farm
+DROP PROCEDURE IF EXISTS pl_update_Farm;
+DELIMITER //
+CREATE PROCEDURE pl_update_Farm(
+    IN x INT,
+    IN y INT,
+    IN z INT,
+    IN is_loaded_input TINYINT(1),
+    IN world_id_input INT,
+    IN farm_id_input INT
+)
+BEGIN
+    UPDATE Farms
+    SET x_coordinate = x, y_coordinate = y, z_coordinate = z, is_loaded = is_loaded_input, world_id = world_id_input
+    WHERE farm_id = farm_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for a Farm
+DROP PROCEDURE IF EXISTS pl_delete_Farm;
+DELIMITER //
+CREATE PROCEDURE pl_delete_Farm(
+    IN Farm_id_input INT
+)
+BEGIN
+    DELETE FROM Farms WHERE Farm_id = Farm_id_input;
+END //
+DELIMITER ;
