@@ -57,6 +57,23 @@ app.get('/api/worlds', async function (req, res) {
     }
 });
 
+// API endpoint to get worlds that do not already have statistics (1:1 relationship)
+app.get('/api/worlds-without-statistics', async function (req, res) {
+    const db = require('./db-connector');
+    try {
+        const [rows] = await db.query(`
+            SELECT w.world_id, w.name
+            FROM Worlds w
+            LEFT JOIN Statistics s ON s.world_id = w.world_id
+            WHERE s.world_id IS NULL
+            ORDER BY w.world_id ASC
+        `);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Advancements page
 app.get('/advancements', function (req, res) {
     res.sendFile(path.join(__dirname, 'public', 'advancements.html'));
@@ -426,8 +443,17 @@ app.post('/add-statistic', async function (req, res) {
     const distance_travelled = req.body.distance_travelled_input;
     const mob_slain = req.body.mob_slain_input;
     const days_elapsed = req.body.days_elapsed_input;
-    const world_id = req.body.world_id_input;
+    const world_id = Number(req.body.world_id_input);
+    if (!Number.isInteger(world_id) || world_id <= 0) {
+        return res.status(400).send('Invalid world ID');
+    }
+
     try {
+        const [existingStatistic] = await db.query('SELECT statistic_id FROM Statistics WHERE world_id = ? LIMIT 1', [world_id]);
+        if (existingStatistic.length > 0) {
+            return res.status(400).send('This world already has a statistics file. Please choose a different world ID.');
+        }
+
         await db.query('CALL pl_add_Statistic(?, ?, ?, ?, ?)', [blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id]);
         res.redirect('/stats');
     } catch (err) {
