@@ -383,7 +383,7 @@ CREATE PROCEDURE pl_delete_StorageUnit(
     IN StorageUnit_id_input INT
 )
 BEGIN
-    DELETE FROM StorageUnits WHERE storageUnit_id = StorageUnit_id_input;
+    DELETE FROM StorageUnits WHERE storage_id = StorageUnit_id_input;
 END //
 DELIMITER ;
 
