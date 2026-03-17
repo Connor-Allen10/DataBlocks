@@ -324,7 +324,7 @@ CREATE PROCEDURE pl_delete_FarmItem(
     IN FarmItem_id_input INT
 )
 BEGIN
-    DELETE FROM FarmItems WHERE farmItem_id = FarmItem_id_input;
+    DELETE FROM FarmItems WHERE farm_item_id = FarmItem_id_input;
 END //
 DELIMITER ;
 
