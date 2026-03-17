@@ -389,3 +389,56 @@ DELIMITER ;
 
 
 -- Stored Items
+
+
+-- select procedure for StoredItems
+DROP PROCEDURE IF EXISTS pl_get_StoredItems;
+DELIMITER //
+CREATE PROCEDURE pl_get_StoredItems()
+BEGIN
+    SELECT * FROM StoredItems;
+END //
+DELIMITER ;
+
+-- add procedure for a StoredItem
+DROP PROCEDURE IF EXISTS pl_add_StoredItem;
+DELIMITER //
+CREATE PROCEDURE pl_add_StoredItem(
+    IN itemName VARCHAR(64),
+    IN itemQuantity INT,
+    IN UnitIdFk INT
+)
+BEGIN
+    INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (itemName, itemQuantity, UnitIdFk);
+END //
+DELIMITER ;
+
+-- update procedure for a StoredItem
+DROP PROCEDURE IF EXISTS pl_update_StoredItem;
+DELIMITER //
+CREATE PROCEDURE pl_update_StoredItem(
+    IN itemName VARCHAR(64),
+    IN itemQuantity INT,
+    IN UnitIdFk INT,
+    IN stored_item_id INT
+)
+BEGIN
+    UPDATE StoredItems
+    SET item_name = itemName, quantity = itemQuantity, storage_id = UnitIdFk
+    WHERE stored_item_id = stored_item_id;
+END //
+DELIMITER ;
+
+-- delete procedure for a StoredItem
+DROP PROCEDURE IF EXISTS pl_delete_StoredItem;
+DELIMITER //
+CREATE PROCEDURE pl_delete_StoredItem(
+    IN StoredItem_id_input INT
+)
+BEGIN
+    DELETE FROM StoredItems WHERE StoredItem_id = StoredItem_id_input;
+END //
+DELIMITER ;
+
+
+-- advancements

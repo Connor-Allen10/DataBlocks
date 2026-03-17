@@ -145,7 +145,7 @@ app.get('/storeditems', function (req, res) {
 app.get('/api/storeditems', async function (req, res) {
     const db = require('./db-connector');
     try {
-        const [rows] = await db.query('SELECT * FROM StoredItems');
+        const [rows] = await db.query('CALL pl_get_StoredItems();');
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -342,7 +342,7 @@ app.post('/add-StoredItems', async function (req, res) {
     const itemQuantity = req.body.quantity_input;
     const UnitIdFk = req.body.unit_id_input;
     try {
-        await db.query('INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (?, ?, ?)', [itemName, itemQuantity, UnitIdFk]);
+        await db.query('CALL pl_add_StoredItem(itemName, itemQuantity, UnitIdFk);');
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error adding StoredItem: ' + err.message);
@@ -354,7 +354,7 @@ app.post('/delete-StoredItems', async function (req, res) {
     const db = require('./db-connector');
     const storedItemId = req.body.stored_item_id;
     try {
-        await db.query('DELETE FROM StoredItems WHERE stored_item_id = ?', [storedItemId]);
+        await db.query('CALL pl_delete_StoredItem(storedItemId);');
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error deleting StoredItem: ' + err.message);
@@ -369,7 +369,7 @@ app.post('/edit-StoredItems', async function (req, res) {
     const itemQuantity = req.body.quantity_input;
     const UnitIdFk = req.body.unit_id_input;
     try {
-        await db.query('UPDATE StoredItems SET item_name = ?, quantity = ?, storage_id = ? WHERE stored_item_id = ?', [itemName, itemQuantity, UnitIdFk, stored_item_id]);
+        await db.query('CALL pl_update_StoredItem(itemName, itemQuantity, UnitIdFk, stored_item_id);');
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error editing StoredItem: ' + err.message);
