@@ -15,7 +15,7 @@ SELECT * FROM Players;
 INSERT INTO Players (world_count, username) VALUES (0, username);
 
 -- edit a player
-UPDATE Players SET username = ? WHERE player_id = ?, [username, player_id]
+UPDATE Players SET username = ? WHERE player_id = ?, [username, player_id];
 
 -- delete a new player
 DELETE FROM Players WHERE player_id = playerId;
@@ -31,7 +31,7 @@ SELECT * FROM Worlds;
 INSERT INTO Worlds (name, gamemode, version, player_id) VALUES (name, gamemode, version, player_id);
 
 -- Edit a world
-UPDATE Worlds SET name = ?, gamemode = ?, version = ?, player_id = ? WHERE world_id = ?, [name, gamemode, version, player_id, world_id]
+UPDATE Worlds SET name = ?, gamemode = ?, version = ?, player_id = ? WHERE world_id = ?, [name, gamemode, version, player_id, world_id];
 
 -- remove a world
 DELETE FROM Worlds WHERE world_id = worldId;
@@ -47,7 +47,7 @@ SELECT * FROM Statistics;
 INSERT INTO Statistics (blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id) VALUES (blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id);
 
 -- Update a statistic
-UPDATE Statistics SET blocks_mined = ?, distance_travelled = ?, mob_slain = ?, days_elapsed = ? WHERE statistic_id = ?, [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id]
+UPDATE Statistics SET blocks_mined = ?, distance_travelled = ?, mob_slain = ?, days_elapsed = ? WHERE statistic_id = ?, [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id];
 
 -- delete statistics table
 DELETE FROM Statistics WHERE statistic_id = statistic_id;
@@ -63,7 +63,7 @@ SELECT * FROM Advancements;
 INSERT INTO Advancements (name, description, progress, world_id) VALUES (name, description, progress, world_id);
 
 -- Edit an advancement
-UPDATE Advancements SET name = ?, description = ?, progress = ?, world_id = ? WHERE achievement_id = ?, [name, description, progress, world_id, achievement_id]
+UPDATE Advancements SET name = ?, description = ?, progress = ?, world_id = ? WHERE achievement_id = ?, [name, description, progress, world_id, achievement_id];
 
 -- Update an advancement
 DELETE FROM Advancements WHERE achievement_id = advancement_id;
@@ -79,7 +79,7 @@ SELECT * FROM Farms;
 INSERT INTO Farms (x_coordinate, y_coordinate, z_coordinate, is_loaded, world_id) VALUES (x, y, z, is_loaded, world_id);
 
 -- Edit a farm
-UPDATE Farms SET x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, is_loaded = ?, world_id = ? WHERE farm_id = ?, [x, y, z, is_loaded, world_id, farm_id]
+UPDATE Farms SET x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, is_loaded = ?, world_id = ? WHERE farm_id = ?, [x, y, z, is_loaded, world_id, farm_id];
 
 -- remove a farm
 DELETE FROM Farms WHERE farm_id = farm_id;
@@ -95,7 +95,7 @@ SELECT * FROM FarmItems;
 INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (itemFarmName, itemYield, FarmIdFk);
 
 -- Edit a farm item
-UPDATE FarmItems SET item_name = ?, item_yield_per_hour = ?, farm_id = ? WHERE farm_item_id = ?, [itemFarmName, itemYield, FarmIdFk, farm_item_id]
+UPDATE FarmItems SET item_name = ?, item_yield_per_hour = ?, farm_id = ? WHERE farm_item_id = ?, [itemFarmName, itemYield, FarmIdFk, farm_item_id];
 
 -- remove a farm item
 DELETE FROM FarmItems WHERE farm_item_id = farmItemId;
@@ -111,7 +111,7 @@ SELECT * FROM StorageUnits;
 INSERT INTO StorageUnits (storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (storeType, storeSlot, storeX, storeY, storeZ, worldIdFk);
 
 -- Edit a Storage unit
-UPDATE StorageUnits SET storage_type = ?, storage_slots = ?, x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, world_id = ? WHERE storage_id = ?, [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk, storage_id]
+UPDATE StorageUnits SET storage_type = ?, storage_slots = ?, x_coordinate = ?, y_coordinate = ?, z_coordinate = ?, world_id = ? WHERE storage_id = ?, [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk, storage_id];
 
 -- delete a Storage unit
 DELETE FROM StorageUnits WHERE storage_id = StorageUnitId;
@@ -127,7 +127,7 @@ SELECT * FROM StoredItems;
 INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (itemName, itemQuantity, UnitIdFk);
 
 -- Edit a new Stored item
-UPDATE StoredItems SET item_name = ?, quantity = ?, storage_id = ? WHERE stored_item_id = ?, [itemName, itemQuantity, UnitIdFk, stored_item_id]
+UPDATE StoredItems SET item_name = ?, quantity = ?, storage_id = ? WHERE stored_item_id = ?, [itemName, itemQuantity, UnitIdFk, stored_item_id];
 
 -- delete a new Stored item
 DELETE FROM StoredItems WHERE stored_item_id = storedItemId;

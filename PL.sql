@@ -174,7 +174,68 @@ DELIMITER ;
 -- Players
 
 
--- select procedure for player
+hh
+
+
+-- Worlds
+
+
+-- select procedure for world
+DROP PROCEDURE IF EXISTS pl_get_worlds;
+DELIMITER //
+CREATE PROCEDURE pl_get_worlds()
+BEGIN
+    SELECT * FROM Worlds;
+END //
+DELIMITER ;
+
+-- add procedure for a world
+DROP PROCEDURE IF EXISTS pl_add_world;
+DELIMITER //
+CREATE PROCEDURE pl_add_world(
+    IN name_input VARCHAR(32), 
+    IN gamemode_input VARCHAR(10),
+    IN version_input VARCHAR(10),
+    IN player_id_input INT
+)
+BEGIN
+    INSERT INTO Worlds (name, gamemode, version, player_id) VALUES (name_input, gamemode_input, version_input, player_id_input);
+END //
+DELIMITER ;
+
+-- update procedure for a world
+DROP PROCEDURE IF EXISTS pl_update_world;
+DELIMITER //
+CREATE PROCEDURE pl_update_world(
+    IN name_input VARCHAR(32), 
+    IN gamemode_input VARCHAR(10),
+    IN version_input VARCHAR(10),
+    IN player_id_input INT,
+    IN world_id_input INT
+)
+BEGIN
+    UPDATE Worlds
+    SET name = name_input, gamemode = gamemode_input, version = version_input, player_id = player_id_input
+    WHERE world_id = world_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for a world
+DROP PROCEDURE IF EXISTS pl_delete_world;
+DELIMITER //
+CREATE PROCEDURE pl_delete_world(
+    IN world_id_input INT
+)
+BEGIN
+    DELETE FROM Worlds WHERE world_id = world_id_input;
+END //
+DELIMITER ;
+
+
+-- Farm Items
+
+
+-- select procedure for Farm Items
 DROP PROCEDURE IF EXISTS pl_get_players;
 DELIMITER //
 CREATE PROCEDURE pl_get_players()
@@ -183,7 +244,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- add procedure for a player
+-- add procedure for a Farm Item
 DROP PROCEDURE IF EXISTS pl_add_player;
 DELIMITER //
 CREATE PROCEDURE pl_add_player(
@@ -194,10 +255,10 @@ BEGIN
 END //
 DELIMITER ;
 
--- update procedure for Sessions
-DROP PROCEDURE IF EXISTS sp_update_session;
+-- update procedure for a Farm Item
+DROP PROCEDURE IF EXISTS pl_update_player;
 DELIMITER //
-CREATE PROCEDURE sp_update_session(
+CREATE PROCEDURE pl_update_player(
     IN username_input VARCHAR(16),
     IN player_id_input INT
 )
@@ -208,10 +269,10 @@ BEGIN
 END //
 DELIMITER ;
 
--- delete procedure for sessions
-DROP PROCEDURE IF EXISTS sp_delete_player;
+-- delete procedure for a Farm Item
+DROP PROCEDURE IF EXISTS pl_delete_player;
 DELIMITER //
-CREATE PROCEDURE sp_delete_player(
+CREATE PROCEDURE pl_delete_player(
     IN player_id_input INT
 )
 BEGIN
@@ -221,5 +282,57 @@ END //
 DELIMITER ;
 
 
--- Worlds
+-- Farm Items
 
+
+-- select procedure for farm Items
+DROP PROCEDURE IF EXISTS pl_get_FarmItems;
+DELIMITER //
+CREATE PROCEDURE pl_get_FarmItems()
+BEGIN
+    SELECT * FROM FarmItems;
+END //
+DELIMITER ;
+
+-- add procedure for a farm Items
+DROP PROCEDURE IF EXISTS pl_add_FarmItem;
+DELIMITER //
+CREATE PROCEDURE pl_add_FarmItem(
+    IN itemFarmName_input VARCHAR(64),
+    IN itemYield_input INT,
+    IN FarmIdFk_input INT
+)
+BEGIN
+    INSERT INTO FarmItems (item_name, item_yield_per_hour, farm_id) VALUES (itemFarmName_input, itemYield_input, FarmIdFk_input);
+END //
+DELIMITER ;
+
+-- update procedure for a farm Items
+DROP PROCEDURE IF EXISTS pl_update_FarmItem;
+DELIMITER //
+CREATE PROCEDURE pl_update_FarmItem(
+    IN itemFarmName_input VARCHAR(64),
+    IN itemYield_input INT,
+    IN FarmIdFk_input INT,
+    IN farm_item_id_input INT
+)
+BEGIN
+    UPDATE FarmItems
+    SET item_name = itemFarmName_input, item_yield_per_hour = itemYield_input, farm_id = FarmIdFk_input
+    WHERE farm_item_id = ;
+END //
+DELIMITER ;
+
+-- delete procedure for a farm Items
+DROP PROCEDURE IF EXISTS pl_delete_FarmItem;
+DELIMITER //
+CREATE PROCEDURE pl_delete_FarmItem(
+    IN FarmItem_id_input INT
+)
+BEGIN
+    DELETE FROM FarmItems WHERE FarmItem_id = FarmItem_id_input;
+END //
+DELIMITER ;
+
+
+-- 
