@@ -162,7 +162,7 @@ app.post('/add-player', async function (req, res) {
     const db = require('./db-connector');
     const username = req.body.username_input;
     try {
-        await db.query('CALL pl_add_player(username)');
+        await db.query('CALL pl_add_player(?)', [username]);
         res.redirect('/players');
     } catch (err) {
         res.status(500).send('Error adding player: ' + err.message);
@@ -266,7 +266,7 @@ app.post('/delete-farmItem', async function (req, res) {
     const db = require('./db-connector');
     const farmItemId = req.body.farm_item_id;
     try {
-        await db.query('CALL pl_delete_FarmItem(farmItemId)');
+        await db.query('CALL pl_delete_FarmItem(?)', [farmItemId]);
         res.redirect('/farmitems');
     } catch (err) {
         res.status(500).send('Error deleting FarmItems: ' + err.message);
@@ -281,7 +281,7 @@ app.post('/edit-farmItem', async function (req, res) {
     const itemYield = req.body.item_yield_input;
     const FarmIdFk = req.body.item_farm_id_input;
     try {
-        await db.query('CALL pl_update_FarmItem(itemFarmName, itemYield, FarmIdFk, farm_item_id)');
+        await db.query('CALL pl_update_FarmItem(?, ?, ?, ?)', [itemFarmName, itemYield, FarmIdFk, farm_item_id]);
         res.redirect('/farmitems');
     } catch (err) {
         res.status(500).send('Error editing FarmItems: ' + err.message);
@@ -298,7 +298,7 @@ app.post('/add-StorageUnits', async function (req, res) {
     const storeZ = req.body.store_z_input;
     const worldIdFk = req.body.world_id_input;
     try {
-        await db.query('CALL pl_add_StorageUnit(storeType, storeSlot, storeX, storeY, storeZ, worldIdFk)');
+        await db.query('CALL pl_add_StorageUnit(?, ?, ?, ?, ?, ?)', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk]);
         res.redirect('/storageunits');
     } catch (err) {
         res.status(500).send('Error adding StorageUnit: ' + err.message);
@@ -310,7 +310,7 @@ app.post('/delete-StorageUnits', async function (req, res) {
     const db = require('./db-connector');
     const StorageUnitId = req.body.storage_id;
     try {
-        await db.query('CALL pl_delete_StorageUnit(StorageUnitId)');
+        await db.query('CALL pl_delete_StorageUnit(?)', [StorageUnitId]);
         res.redirect('/storageunits');
     } catch (err) {
         res.status(500).send('Error deleting StorageUnit: ' + err.message);
@@ -328,7 +328,7 @@ app.post('/edit-StorageUnits', async function (req, res) {
     const storeZ = req.body.store_z_input;
     const worldIdFk = req.body.world_id_input;
     try {
-        await db.query('CALL pl_update_StorageUnit(storeType, storeSlot, storeX, storeY, storeZ, worldIdFk, storage_id)');
+        await db.query('CALL pl_update_StorageUnit(?, ?, ?, ?, ?, ?, ?)', [storeType, storeSlot, storeX, storeY, storeZ, worldIdFk, storage_id]);
         res.redirect('/storageunits');
     } catch (err) {
         res.status(500).send('Error editing StorageUnit: ' + err.message);
@@ -342,7 +342,7 @@ app.post('/add-StoredItems', async function (req, res) {
     const itemQuantity = req.body.quantity_input;
     const UnitIdFk = req.body.unit_id_input;
     try {
-        await db.query('CALL pl_add_StoredItem(itemName, itemQuantity, UnitIdFk)');
+        await db.query('CALL pl_add_StoredItem(?, ?, ?)', [itemName, itemQuantity, UnitIdFk]);
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error adding StoredItem: ' + err.message);
@@ -354,7 +354,7 @@ app.post('/delete-StoredItems', async function (req, res) {
     const db = require('./db-connector');
     const storedItemId = req.body.stored_item_id;
     try {
-        await db.query('CALL pl_delete_StoredItem(storedItemId)');
+        await db.query('CALL pl_delete_StoredItem(?)', [storedItemId]);
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error deleting StoredItem: ' + err.message);
@@ -369,7 +369,7 @@ app.post('/edit-StoredItems', async function (req, res) {
     const itemQuantity = req.body.quantity_input;
     const UnitIdFk = req.body.unit_id_input;
     try {
-        await db.query('CALL pl_update_StoredItem(itemName, itemQuantity, UnitIdFk, stored_item_id)');
+        await db.query('CALL pl_update_StoredItem(?, ?, ?, ?)', [itemName, itemQuantity, UnitIdFk, stored_item_id]);
         res.redirect('/storeditems');
     } catch (err) {
         res.status(500).send('Error editing StoredItem: ' + err.message);
@@ -384,7 +384,7 @@ app.post('/add-advancement', async function (req, res) {
     const progress = req.body.progress_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('CALL pl_add_Advancement(name, description, progress, world_id)');
+        await db.query('CALL pl_add_Advancement(?, ?, ?, ?)', [name, description, progress, world_id]);
         res.redirect('/advancements');
     } catch (err) {
         res.status(500).send('Error adding Advancement: ' + err.message);
@@ -396,7 +396,7 @@ app.post('/delete-advancement', async function (req, res) {
     const db = require('./db-connector');
     const advancement_id = req.body.achievement_id;
     try {
-        await db.query('CALL pl_delete_Advancement(advancement_id)');
+        await db.query('CALL pl_delete_Advancement(?)', [advancement_id]);
         res.redirect('/advancements');
     } catch (err) {
         res.status(500).send('Error deleting Advancements: ' + err.message);
@@ -412,7 +412,7 @@ app.post('/edit-advancement', async function (req, res) {
     const progress = req.body.progress_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('CALL pl_update_Advancement(name, description, progress, world_id, achievement_id)');
+        await db.query('CALL pl_update_Advancement(?, ?, ?, ?, ?)', [name, description, progress, world_id, achievement_id]);
         res.redirect('/advancements');
     } catch (err) {
         res.status(500).send('Error editing Advancement: ' + err.message);
@@ -428,7 +428,7 @@ app.post('/add-statistic', async function (req, res) {
     const days_elapsed = req.body.days_elapsed_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('CALL pl_add_Statistic(blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id)');
+        await db.query('CALL pl_add_Statistic(?, ?, ?, ?, ?)', [blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id]);
         res.redirect('/stats');
     } catch (err) {
         res.status(500).send('Error adding statistic: ' + err.message);
@@ -444,7 +444,7 @@ app.post('/edit-statistic', async function (req, res) {
     const days_elapsed = req.body.days_elapsed_input;
     const statistic_id = req.body.statistic_id_input;
     try {
-        await db.query('CALL pl_update_Statistic(blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id)');
+        await db.query('CALL pl_update_Statistic(?, ?, ?, ?, ?)', [blocks_mined, distance_travelled, mob_slain, days_elapsed, statistic_id]);
         res.redirect('/stats');
     } catch (err) {
         res.status(500).send('Error editing statistic: ' + err.message);
@@ -456,7 +456,7 @@ app.post('/delete-statistic', async function (req, res) {
     const db = require('./db-connector');
     const statistic_id = req.body.statistic_id;
     try {
-        await db.query('CALL pl_delete_Statistic(statistic_id)');
+        await db.query('CALL pl_delete_Statistic(?)', [statistic_id]);
         res.redirect('/stats');
     } catch (err) {
         res.status(500).send('Error deleting statistic: ' + err.message);
@@ -472,7 +472,7 @@ app.post('/add-farm', async function (req, res) {
     const is_loaded = req.body.is_loaded_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('CALL pl_add_Farm(x, y, z, is_loaded, world_id)');
+        await db.query('CALL pl_add_Farm(?, ?, ?, ?, ?)', [x, y, z, is_loaded, world_id]);
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error adding farm: ' + err.message);
@@ -484,7 +484,7 @@ app.post('/delete-farm', async function (req, res) {
     const db = require('./db-connector');
     const farm_id = req.body.farm_id;
     try {
-        await db.query('CALL pl_delete_Farm(farm_id)');
+        await db.query('CALL pl_delete_Farm(?)', [farm_id]);
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error deleting farm: ' + err.message);
@@ -501,7 +501,7 @@ app.post('/edit-farm', async function (req, res) {
     const is_loaded = req.body.is_loaded_input;
     const world_id = req.body.world_id_input;
     try {
-        await db.query('CALL pl_update_Farm(x, y, z, is_loaded, world_id, farm_id)');
+        await db.query('CALL pl_update_Farm(?, ?, ?, ?, ?, ?)', [x, y, z, is_loaded, world_id, farm_id]);
         res.redirect('/farms');
     } catch (err) {
         res.status(500).send('Error editing farm: ' + err.message);
