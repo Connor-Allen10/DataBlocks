@@ -436,7 +436,7 @@ CREATE PROCEDURE pl_delete_StoredItem(
     IN StoredItem_id_input INT
 )
 BEGIN
-    DELETE FROM StoredItems WHERE storedItem_id = StoredItem_id_input;
+    DELETE FROM StoredItems WHERE stored_item_id = StoredItem_id_input;
 END //
 DELIMITER ;
 
