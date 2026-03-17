@@ -324,7 +324,7 @@ CREATE PROCEDURE pl_delete_FarmItem(
     IN FarmItem_id_input INT
 )
 BEGIN
-    DELETE FROM FarmItems WHERE FarmItem_id = FarmItem_id_input;
+    DELETE FROM FarmItems WHERE farmItem_id = FarmItem_id_input;
 END //
 DELIMITER ;
 
@@ -383,7 +383,7 @@ CREATE PROCEDURE pl_delete_StorageUnit(
     IN StorageUnit_id_input INT
 )
 BEGIN
-    DELETE FROM StorageUnits WHERE StorageUnit_id = StorageUnit_id_input;
+    DELETE FROM StorageUnits WHERE storageUnit_id = StorageUnit_id_input;
 END //
 DELIMITER ;
 
@@ -420,12 +420,12 @@ CREATE PROCEDURE pl_update_StoredItem(
     IN itemName VARCHAR(64),
     IN itemQuantity INT,
     IN UnitIdFk INT,
-    IN stored_item_id INT
+    IN stored_item_id_input INT
 )
 BEGIN
     UPDATE StoredItems
     SET item_name = itemName, quantity = itemQuantity, storage_id = UnitIdFk
-    WHERE stored_item_id = stored_item_id;
+    WHERE stored_item_id = stored_item_id_input;
 END //
 DELIMITER ;
 
@@ -436,7 +436,7 @@ CREATE PROCEDURE pl_delete_StoredItem(
     IN StoredItem_id_input INT
 )
 BEGIN
-    DELETE FROM StoredItems WHERE StoredItem_id = StoredItem_id_input;
+    DELETE FROM StoredItems WHERE storedItem_id = StoredItem_id_input;
 END //
 DELIMITER ;
 
@@ -491,7 +491,7 @@ CREATE PROCEDURE pl_delete_Advancement(
     IN Advancement_id_input INT
 )
 BEGIN
-    DELETE FROM Advancements WHERE Advancement_id = Advancement_id_input;
+    DELETE FROM Advancements WHERE achievement_id = Advancement_id_input;
 END //
 DELIMITER ;
 
@@ -547,7 +547,7 @@ CREATE PROCEDURE pl_delete_Statistic(
     IN Statistic_id_input INT
 )
 BEGIN
-    DELETE FROM Statistics WHERE Statistic_id = Statistic_id_input;
+    DELETE FROM Statistics WHERE statistic_id = Statistic_id_input;
 END //
 DELIMITER ;
 
@@ -604,6 +604,6 @@ CREATE PROCEDURE pl_delete_Farm(
     IN Farm_id_input INT
 )
 BEGIN
-    DELETE FROM Farms WHERE Farm_id = Farm_id_input;
+    DELETE FROM Farms WHERE farm_id = Farm_id_input;
 END //
 DELIMITER ;
