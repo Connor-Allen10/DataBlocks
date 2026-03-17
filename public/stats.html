@@ -68,7 +68,9 @@
             <input type="number" name="days_elapsed_input" id="days_elapsed_input" required>
 
             <label for="world_id_input">World ID:</label>
-            <input type="number" name="world_id_input" id="world_id_input" required>
+            <select name="world_id_input" id="world_id_input" required>
+                <option value="">Select a World</option>
+            </select>
 
             <input type="submit" value="Add Statistic">
         </form>
@@ -122,8 +124,27 @@
             });
     }
 
+    function populateAvailableWorldDropdown() {
+        fetch('/api/worlds-without-statistics')
+            .then(response => response.json())
+            .then(worlds => {
+                const addSelect = document.getElementById('world_id_input');
+                addSelect.innerHTML = '<option value="">Select a World</option>';
+
+                worlds.forEach(world => {
+                    const option = document.createElement('option');
+                    option.value = world.world_id;
+                    option.textContent = `${world.world_id}: ${world.name}`;
+                    addSelect.appendChild(option);
+                });
+            });
+    }
+
         
-    document.addEventListener('DOMContentLoaded', renderStatsTable);
+    document.addEventListener('DOMContentLoaded', function () {
+        renderStatsTable();
+        populateAvailableWorldDropdown();
+    });
     </script>
     
     <!--<h2>Update Statistics</h2>
