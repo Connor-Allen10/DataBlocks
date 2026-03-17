@@ -442,3 +442,116 @@ DELIMITER ;
 
 
 -- advancements
+
+
+-- select procedure for Advancements
+DROP PROCEDURE IF EXISTS pl_get_Advancements;
+DELIMITER //
+CREATE PROCEDURE pl_get_Advancements()
+BEGIN
+    SELECT * FROM Advancements;
+END //
+DELIMITER ;
+
+-- add procedure for a Advancement
+DROP PROCEDURE IF EXISTS pl_add_Advancement;
+DELIMITER //
+CREATE PROCEDURE pl_add_Advancement(
+    IN name_input VARCHAR(32),
+    IN description_input VARCHAR(255),
+    IN progress_input INT,
+    IN world_id_input INT
+)
+BEGIN
+    INSERT INTO Advancements (name, description, progress, world_id) VALUES (name_input, description_input, progress_input, world_id_input);
+END //
+DELIMITER ;
+
+-- update procedure for a Advancement
+DROP PROCEDURE IF EXISTS pl_update_Advancement;
+DELIMITER //
+CREATE PROCEDURE pl_update_Advancement(
+    IN name_input VARCHAR(32),
+    IN description_input VARCHAR(255),
+    IN progress_input INT,
+    IN world_id_input INT,
+    IN achievement_id_input INT
+)
+BEGIN
+    UPDATE Advancements
+    SET name = name_input, description = description_input, progress = progress_input, world_id = world_id_input
+    WHERE achievement_id = achievement_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for a Advancement
+DROP PROCEDURE IF EXISTS pl_delete_Advancement;
+DELIMITER //
+CREATE PROCEDURE pl_delete_Advancement(
+    IN Advancement_id_input INT
+)
+BEGIN
+    DELETE FROM Advancements WHERE Advancement_id = Advancement_id_input;
+END //
+DELIMITER ;
+
+
+-- Statistics
+
+
+-- select procedure for Statistics
+DROP PROCEDURE IF EXISTS pl_get_Statistics;
+DELIMITER //
+CREATE PROCEDURE pl_get_Statistics()
+BEGIN
+    SELECT * FROM Statistics;
+END //
+DELIMITER ;
+
+-- add procedure for a Statistic
+DROP PROCEDURE IF EXISTS pl_add_Statistic;
+DELIMITER //
+CREATE PROCEDURE pl_add_Statistic(
+    IN blocks_mined_input INT,
+    IN distance_travelled_input INT,
+    IN mob_slain_input INT,
+    IN days_elapsed_input INT,
+    IN world_id_input INT
+)
+BEGIN
+    INSERT INTO Statistics (blocks_mined, distance_travelled, mob_slain, days_elapsed, world_id) VALUES (blocks_mined_input, distance_travelled_input, mob_slain_input, days_elapsed_input, world_id_input);
+END //
+DELIMITER ;
+
+-- update procedure for a Statistic
+DROP PROCEDURE IF EXISTS pl_update_Statistic;
+DELIMITER //
+CREATE PROCEDURE pl_update_Statistic(
+    IN blocks_mined_input INT,
+    IN distance_travelled_input INT,
+    IN mob_slain_input INT,
+    IN days_elapsed_input INT,
+    IN statistic_id_input INT
+)
+BEGIN
+    UPDATE Statistics
+    SET blocks_mined = blocks_mined_input, distance_travelled = distance_travelled_input, mob_slain = mob_slain_input, days_elapsed = days_elapsed_input
+    WHERE statistic_id = statistic_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for a Statistic
+DROP PROCEDURE IF EXISTS pl_delete_Statistic;
+DELIMITER //
+CREATE PROCEDURE pl_delete_Statistic(
+    IN Statistic_id_input INT
+)
+BEGIN
+    DELETE FROM Statistics WHERE Statistic_id = Statistic_id_input;
+END //
+DELIMITER ;
+
+
+-- Farms
+
+
