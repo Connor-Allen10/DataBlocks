@@ -35,7 +35,7 @@ app.get('/api/players', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_players()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -51,7 +51,7 @@ app.get('/api/worlds', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_worlds()');
-        res.json(rows);
+        rres.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -67,7 +67,7 @@ app.get('/api/advancements', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_Advancements()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -83,7 +83,7 @@ app.get('/api/statistics', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_Statistics()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -94,7 +94,7 @@ app.get('/api/farms', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_Farms()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -105,7 +105,7 @@ app.get('/api/storageunits', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_StorageUnits()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -125,7 +125,7 @@ app.get('/api/farmitems', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_FarmItems()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -146,7 +146,7 @@ app.get('/api/storeditems', async function (req, res) {
     const db = require('./db-connector');
     try {
         const [rows] = await db.query('CALL pl_get_StoredItems()');
-        res.json(rows);
+        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
