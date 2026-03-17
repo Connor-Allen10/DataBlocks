@@ -174,6 +174,53 @@ DELIMITER ;
 -- Players
 
 
+-- select procedure for player
+DROP PROCEDURE IF EXISTS pl_get_players;
+DELIMITER //
+CREATE PROCEDURE pl_get_players()
+BEGIN
+    SELECT * FROM Players;
+END //
+DELIMITER ;
+
+-- add procedure for a player
+DROP PROCEDURE IF EXISTS pl_add_player;
+DELIMITER //
+CREATE PROCEDURE pl_add_player(
+    IN username_input VARCHAR(16)
+)
+BEGIN
+    INSERT INTO Players (world_count, username) VALUES (0, username_input);
+END //
+DELIMITER ;
+
+-- update procedure for a player
+DROP PROCEDURE IF EXISTS pl_update_player;
+DELIMITER //
+CREATE PROCEDURE pl_update_player(
+    IN username_input VARCHAR(16),
+    IN player_id_input INT
+)
+BEGIN
+    UPDATE Players
+    SET username = username_input
+    WHERE player_id = player_id_input;
+END //
+DELIMITER ;
+
+-- delete procedure for a player
+DROP PROCEDURE IF EXISTS pl_delete_player;
+DELIMITER //
+CREATE PROCEDURE pl_delete_player(
+    IN player_id_input INT
+)
+BEGIN
+    DELETE FROM Worlds WHERE player_id = player_id_input;
+    DELETE FROM Players WHERE player_id = player_id_input;
+END //
+DELIMITER ;
+
+
 -- Worlds
 
 
@@ -225,56 +272,6 @@ CREATE PROCEDURE pl_delete_world(
 )
 BEGIN
     DELETE FROM Worlds WHERE world_id = world_id_input;
-END //
-DELIMITER ;
-
-
--- Farm Items
-
-
--- select procedure for Farm Items
-DROP PROCEDURE IF EXISTS pl_get_players;
-DELIMITER //
-CREATE PROCEDURE pl_get_players()
-BEGIN
-    SELECT * FROM Players;
-END //
-DELIMITER ;
-
--- add procedure for a Farm Item
-DROP PROCEDURE IF EXISTS pl_add_player;
-DELIMITER //
-CREATE PROCEDURE pl_add_player(
-    IN username_input VARCHAR(16)
-)
-BEGIN
-    INSERT INTO Players (world_count, username) VALUES (0, username_input);
-END //
-DELIMITER ;
-
--- update procedure for a Farm Item
-DROP PROCEDURE IF EXISTS pl_update_player;
-DELIMITER //
-CREATE PROCEDURE pl_update_player(
-    IN username_input VARCHAR(16),
-    IN player_id_input INT
-)
-BEGIN
-    UPDATE Players
-    SET username = username_input
-    WHERE player_id = player_id_input;
-END //
-DELIMITER ;
-
--- delete procedure for a Farm Item
-DROP PROCEDURE IF EXISTS pl_delete_player;
-DELIMITER //
-CREATE PROCEDURE pl_delete_player(
-    IN player_id_input INT
-)
-BEGIN
-    DELETE FROM Worlds WHERE player_id = player_id_input;
-    DELETE FROM Players WHERE player_id = player_id_input;
 END //
 DELIMITER ;
 
@@ -335,3 +332,113 @@ DELIMITER ;
 -- StorageUnit
 
 
+-- select procedure for StorageUnits
+DROP PROCEDURE IF EXISTS pl_get_StorageUnits;
+DELIMITER //
+CREATE PROCEDURE pl_get_StorageUnits()
+BEGIN
+    SELECT * FROM StorageUnits;
+END //
+DELIMITER ;
+
+-- add procedure for a StorageUnit
+DROP PROCEDURE IF EXISTS pl_add_StorageUnit;
+DELIMITER //
+CREATE PROCEDURE pl_add_StorageUnit(
+    IN storeType VARCHAR(32),
+    IN storeSlot INT,
+    IN storeX INT,
+    IN storeY INT,
+    IN storeZ INT,
+    IN worldIdFk INT
+)
+BEGIN
+    INSERT INTO StorageUnits (storage_type, storage_slots, x_coordinate, y_coordinate, z_coordinate, world_id) VALUES (storeType, storeSlot, storeX, storeY, storeZ, worldIdFk);
+END //
+DELIMITER ;
+
+-- update procedure for a StorageUnit
+DROP PROCEDURE IF EXISTS pl_update_StorageUnit;
+DELIMITER //
+CREATE PROCEDURE pl_update_StorageUnit(
+    IN storeType VARCHAR(32),
+    IN storeSlot INT,
+    IN storeX INT,
+    IN storeY INT,
+    IN storeZ INT,
+    IN worldIdFk INT,
+    IN storageId INT
+)
+BEGIN
+    UPDATE StorageUnits
+    SET storage_type = storeType, storage_slots = storeSlot, x_coordinate = storeX, y_coordinate = storeY, z_coordinate = storeZ, world_id = worldIdFk
+    WHERE storage_id = storageId;
+END //
+DELIMITER ;
+
+-- delete procedure for a StorageUnit
+DROP PROCEDURE IF EXISTS pl_delete_StorageUnit;
+DELIMITER //
+CREATE PROCEDURE pl_delete_StorageUnit(
+    IN StorageUnit_id_input INT
+)
+BEGIN
+    DELETE FROM StorageUnits WHERE StorageUnit_id = StorageUnit_id_input;
+END //
+DELIMITER ;
+
+
+-- Stored Items
+
+
+-- select procedure for StoredItems
+DROP PROCEDURE IF EXISTS pl_get_StoredItems;
+DELIMITER //
+CREATE PROCEDURE pl_get_StoredItems()
+BEGIN
+    SELECT * FROM StoredItems;
+END //
+DELIMITER ;
+
+-- add procedure for a StoredItem
+DROP PROCEDURE IF EXISTS pl_add_StoredItem;
+DELIMITER //
+CREATE PROCEDURE pl_add_StoredItem(
+    IN itemName VARCHAR(64),
+    IN itemQuantity INT,
+    IN UnitIdFk INT
+)
+BEGIN
+    INSERT INTO StoredItems (item_name, quantity, storage_id) VALUES (itemName, itemQuantity, UnitIdFk);
+END //
+DELIMITER ;
+
+-- update procedure for a StoredItem
+DROP PROCEDURE IF EXISTS pl_update_StoredItem;
+DELIMITER //
+CREATE PROCEDURE pl_update_StoredItem(
+    IN itemName VARCHAR(64),
+    IN itemQuantity INT,
+    IN UnitIdFk INT,
+    IN stored_item_id INT
+)
+BEGIN
+    UPDATE StoredItems
+    SET item_name = itemName, quantity = itemQuantity, storage_id = UnitIdFk
+    WHERE stored_item_id = stored_item_id;
+END //
+DELIMITER ;
+
+-- delete procedure for a StoredItem
+DROP PROCEDURE IF EXISTS pl_delete_StoredItem;
+DELIMITER //
+CREATE PROCEDURE pl_delete_StoredItem(
+    IN StoredItem_id_input INT
+)
+BEGIN
+    DELETE FROM StoredItems WHERE StoredItem_id = StoredItem_id_input;
+END //
+DELIMITER ;
+
+
+-- advancements
